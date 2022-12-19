@@ -10,9 +10,13 @@ starten.
 
 ### Must Have Features
 
+
 [ ] Kommentiert mit JavaDoc
+
 [ ] readme.md für Überblick
+
 [ ] Klassen mit Vererbung, Overriding, etc.
+
 [ ] Zugriffsrechte sinnvoll
 [ ] Exeption Handling
 [ ] File IO (Status-Log)
