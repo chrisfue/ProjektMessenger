@@ -8,38 +8,53 @@ starten.
 
 ---------------------------------
 
-### Must Have Features
+### Must Have Features ###
 
 
-[ ] Kommentiert mit JavaDoc
+* [ ] Kommentiert mit JavaDoc
+* [ ] readme.md für Überblick
+* [ ] Klassen mit Vererbung, Overriding, etc.
+* [ ] Zugriffsrechte sinnvoll
+* [ ] Exeption Handling
+* [ ] File IO (Status-Log)
+* [ ] Multithreading (Thread: jeder Client Thread für Client und Server verbindung)
+* [ ] GUI (Chat-Window)
+* [ ] Networking (einzelner User am Server)
 
-[ ] readme.md für Überblick
+-------------
+### Should Have Features ###
 
-[ ] Klassen mit Vererbung, Overriding, etc.
-
-[ ] Zugriffsrechte sinnvoll
-[ ] Exeption Handling
-[ ] File IO (Status-Log)
-[ ] Multithreading (Thread: jeder Client Thread für Client und Server verbindung)
-[ ] GUI (Chat-Window)
-[ ] Networking (einzelner User am Server)
+* [ ] Networking+ (Mehrere User verbinden sich mit Server)
+* [ ] Online Status anzeigen lassen in der Client GUI.
+* [ ] Chat-Log als .txt File am Server
 
 -------------
 
-1.      test2
+### Nice to Have Features ###
+
+* [ ] Emojis
+* [ ] Chat Log in GUI anzeigen lassen. (letzte h)
+
+--------------
+### Overkill ###
+
+* [ ] Direct Messaging (whisper)
+
+
 -----
+[Add description here]
 *In der Main Methode:*
 
 
 ============================================
 
-*Written by J.M. Wiechern*
+*Written by KliWieFue*
 ---------------------------
 **Project Description**
-slmTest2
+
 
 *last update:*
 
 ```
-18.12.22 - readme added 
+19.12.22 - readme added 
 ```
