@@ -12,33 +12,33 @@ starten.
 
 
 * [ ] Kommentiert mit JavaDoc
-* [ ] readme.md für Überblick
-* [ ] Klassen mit Vererbung, Overriding, etc.
-* [ ] Zugriffsrechte sinnvoll
-* [ ] Exeption Handling
-* [ ] File IO (Status-Log)
-* [ ] Multithreading (Thread: jeder Client Thread für Client und Server verbindung)
-* [ ] GUI (Chat-Window)
-* [ ] Networking (einzelner User am Server)
+* [ ] readme.md für Überblick
+* [ ] Klassen mit Vererbung, Overriding, etc.
+* [ ] Zugriffsrechte sinnvoll
+* [ ] Exeption Handling
+* [ ] File IO (Status-Log)
+* [ ] Multithreading (Thread: jeder Client Thread für Client und Server verbindung)
+* [ ] GUI (Chat-Window)
+* [ ] Networking (einzelner User am Server)
 
 -------------
 ### Should Have Features ###
 
-* [ ] Networking+ (Mehrere User verbinden sich mit Server)
-* [ ] Online Status anzeigen lassen in der Client GUI.
-* [ ] Chat-Log als .txt File am Server
+* [ ] Networking+ (Mehrere User verbinden sich mit Server)
+* [ ] Online Status anzeigen lassen in der Client GUI.
+* [ ] Chat-Log als .txt File am Server
 
 -------------
 
 ### Nice to Have Features ###
 
-* [ ] Emojis
-* [ ] Chat Log in GUI anzeigen lassen. (letzte h)
+* [ ] Emojis
+* [ ] Chat Log in GUI anzeigen lassen. (letzte h)
 
 --------------
 ### Overkill ###
 
-* [ ] Direct Messaging (whisper)
+* [ ] Direct Messaging (whisper)
 
 
 -----
