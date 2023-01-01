@@ -85,10 +85,10 @@ public class HelloApplication extends Application {
                     if((tfLoginIP.getText() != null) && (!tfLoginUsr.getText().isBlank())){
 
                         final String ipAdress = tfLoginIP.getText();
-                        boolean validIp = true;
+                        boolean validIp = true; //todo Chris hier brauche ich den bool ob die IP valid ist und verbindung steht
 
                         //abfrage ob eine valide IP adresse vorliegt und verbindung aufgebaut werden kann, rückgabewert bool
-                        //todo Chris hier kommt die funktion für die abfrage/senden der IP
+                        //todo Chris hier kommt die funktion für die abfrage/senden der IP rein
                         if(validIp){
 
                             //todo for debugging
@@ -128,11 +128,14 @@ public class HelloApplication extends Application {
             butSend.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    final String sendString = tfMessage.getText();
                     //todo Chris sende dir den String
+                    final String sendString = tfMessage.getText();
+
+
 
                     System.out.println(sendString);
                     texAreareceived.setText(userName + ": "+ sendString);
+                    //todo Chris hier kriege ich von dir auch einen string
 
                 }
             });
