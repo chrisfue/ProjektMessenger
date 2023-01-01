@@ -3,9 +3,7 @@ package de.projekt.gui;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,11 +16,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+public class GUIApplication extends Application {
 
-public class HelloApplication extends Application {
-
-    String userName;
+   private String userName;
 
 
 
@@ -129,7 +125,7 @@ public class HelloApplication extends Application {
                 @Override
                 public void handle(ActionEvent event) {
                     //todo Chris sende dir den String
-                    final String sendString = tfMessage.getText();
+                     final String sendString = tfMessage.getText();
 
 
 
