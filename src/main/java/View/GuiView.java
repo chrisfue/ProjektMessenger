@@ -67,6 +67,7 @@ public class GuiView {
 
 
         TextField tfMessage = new TextField();
+        this.clientController.setTfMessage(tfMessage);
         tfMessage.setPromptText("Message...");
         tfMessage.setMaxWidth(200);
 
@@ -75,6 +76,7 @@ public class GuiView {
 
         //Button hinzufügen
         Button butSend = new Button("SEND");
+        this.clientController.setButSend(butSend);
         butSend.setAlignment(Pos.CENTER);
 
         VBox msg = new VBox(10);
