@@ -1,15 +1,19 @@
 package de.projekt.gui;
 
 
+import Networking.Client;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import tools.IPAddressValidator;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -18,35 +22,25 @@ import java.net.UnknownHostException;
 public class ClientController {
 
     //Definition für Displayzugriff
-    private   Stage stage;
-    private Scene login;
-    private Scene msg;
+    private   Stage stage;              //Zugriff auf die Stage
+    private Scene login;                //Zugriff auf die Scene für LoginWindow
+    private Scene msg;                  //Zugriff auf die Scene für MessageWindow
 
-    private Socket client= null;
-    private OutputStream output = null;
+   // private Socket client= null;        //Socket für Verbindung
+    private OutputStream output = null; //Outputstream zum schicken von Daten
 
+    private InputStream input =null;
 
-    //Textfeld für Username
-    private TextField tfLoginUsr;
+    private Client client;
 
-
-
-    public void setLogin(Scene login) {
-        this.login = login;
-    }
-
-
-
-    public void setMsg(Scene msg) {
-        this.msg = msg;
-    }
-
-    //Textfeld für IP
-    private TextField tfLoginIP;
-    //Button für Login
-    private Button butLogin;
+    //Loginfenster:
+    private TextField tfLoginUsr;       //Zugriff au
+    private TextField tfLoginIP;        //Textfeld für IP
+    private Button butLogin;            //Button für Login
+    private Label labelStatus;
 
 
+    //MessageFenster
     private TextField tfMessage;
     private TextArea textAreaReceived;
     private Button butSend;
@@ -56,11 +50,11 @@ public class ClientController {
         this.butLogin.setOnAction((ActionEvent event) -> {
 
                 String IPentered = tfLoginIP.getText();
-                String Username = tfLoginUsr.getText();
+                String username = tfLoginUsr.getText();
 
 
                 //Check dass beide Fenster befüllt sind
-                if(!(IPentered.isEmpty())&&!(Username.isEmpty())){
+                if(!(IPentered.isEmpty())&&!(username.isEmpty())){
 
                     //IP-Adresse auf Gültigkeit prüfen
                     IPAddressValidator validator = new IPAddressValidator();
@@ -69,8 +63,15 @@ public class ClientController {
 
                     //Verbindung zu Server herstellen
                         try{
-                            this.client = new Socket(IPentered,4712);
-                            this.output = client.getOutputStream();
+                            Socket clientsocket = new Socket(IPentered,4712);
+                           /* this.output = client.getOutputStream();
+                            input = client.getInputStream();
+
+                            */
+                            this.client = new Client(clientsocket,username);
+
+
+
                         }catch(UnknownHostException e){
 
                         }
@@ -82,10 +83,14 @@ public class ClientController {
 
 
                       //Nur zum Testen
-                    } else{
-                        System.out.printf("invalid");
+                    } else{ //Wenn keine gültige IP-Adresse eingegeben wurde
+                        labelStatus.setText("Invalid IP-Format.. please try again");
+                        labelStatus.setTextFill(Color.RED);
                     }
 
+                }else{ //Wenn mindestens eines der beiden Fenster leer ist
+                    labelStatus.setText("Please enter both IP \nand Username");
+                    labelStatus.setTextFill(Color.RED);
                 }
         });
 
@@ -96,7 +101,7 @@ public class ClientController {
             //Text ausschicken
 
             try{
-                output.write(bmessage);
+                client.getSocket().getOutputStream().write(bmessage);
             }catch (IOException e){
 
             }
@@ -104,9 +109,26 @@ public class ClientController {
         });
     }
 
+
+    //Constructor mit Weitergabe der Stage
     public ClientController(Stage stage){
         this.stage = stage;
     }
+
+    //Setter für Elemente aus GUI
+
+    public void setLogin(Scene login) {
+        this.login = login;
+    }
+
+public void setLabelStatus(Label labelStatus){
+        this.labelStatus=labelStatus;
+}
+
+    public void setMsg(Scene msg) {
+        this.msg = msg;
+    }
+
     public  void setButLogin(Button butLogin){
         this.butLogin = butLogin;
     }
@@ -128,5 +150,7 @@ public class ClientController {
         this.tfMessage = tfMessage;
     }
 
-
+    public void setTextAreaReceived(TextArea textAreaReceived) {
+        this.textAreaReceived = textAreaReceived;
+    }
 }
