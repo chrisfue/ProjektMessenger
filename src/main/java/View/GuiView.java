@@ -20,13 +20,13 @@ public class GuiView {
 
     private final ClientController clientController;
 
-    public  GuiView(ClientController clientController){this.clientController=clientController;}
-
-
+    public GuiView(ClientController clientController) {
+        this.clientController = clientController;
+    }
 
 
     //Login Fenster
-    public Parent loginWindow(){
+    public Parent loginWindow() {
         //Layout erstellen
         GridPane root = new GridPane();
         root.setPadding(new Insets(10));
@@ -47,12 +47,10 @@ public class GuiView {
 
 
 
-
-
         //Textfeld für Scene definieren
         TextField tfLoginIP = new TextField();
         tfLoginIP.setPromptText("Bitte IP angeben...");
-        root.add(tfLoginIP, 0,0);
+        root.add(tfLoginIP, 0, 0);
 
         //Textfeld mit Controller verlinken
         this.clientController.setTfLoginIP(tfLoginIP);
@@ -60,7 +58,7 @@ public class GuiView {
         //Textfeld für Scene definieren
         TextField tfLoginUsr = new TextField();
         tfLoginUsr.setPromptText("Username eingeben");
-        root.add(tfLoginUsr,0,1);
+        root.add(tfLoginUsr, 0, 1);
 
         //Textfeld mit Controller verlinken
         this.clientController.setTfLoginUsr(tfLoginUsr);
@@ -83,7 +81,7 @@ public class GuiView {
 
         //Label labelStatus für Scene definieren
         Label labelStatus = new Label();
-        root.add(labelStatus,0,2);
+        root.add(labelStatus, 0, 2);
 
         //progress indicator hinzufügen
         root.add(prgIndicator,0,2);
@@ -101,6 +99,7 @@ public class GuiView {
     }
 
     //Message Fenster
+
     public Parent MessageWindow(){
        //GridPane root = new GridPane(); //todo change
 
@@ -119,7 +118,6 @@ public class GuiView {
         //ListView für Angemeldete Member
         //liste erstellen
         ObservableList<String> memberList = FXCollections.observableArrayList();
-
 
         //Viewer der liste erstellen und befüllen
         ListView<String> listView = new ListView<String>();

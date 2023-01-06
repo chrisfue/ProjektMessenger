@@ -27,14 +27,14 @@ import java.util.TimerTask;
 public class ClientController {
 
     //Definition für Displayzugriff
-    private   Stage stage;              //Zugriff auf die Stage
+    private Stage stage;              //Zugriff auf die Stage
     private Scene login;                //Zugriff auf die Scene für LoginWindow
     private Scene msg;                  //Zugriff auf die Scene für MessageWindow
 
-   // private Socket client= null;        //Socket für Verbindung
+    // private Socket client= null;        //Socket für Verbindung
     private OutputStream output = null; //Outputstream zum schicken von Daten
 
-    private InputStream input =null;
+    private InputStream input = null;
 
     private Client client;
 
@@ -82,32 +82,45 @@ public class ClientController {
 
 
 
+
                 //IP-Adresse auf Gültigkeit prüfen
                 IPAddressValidator validator = new IPAddressValidator();
                 if (IPAddressValidator.isValid(IPentered)) {
 
                     //Verbindung zu Server herstellen
-                        try{
 
-                            Socket clientsocket = new Socket(IPentered,4712);
-
-                            this.client = new Client(clientsocket,username);
-
-
-                        }
-                        catch (IOException e){
-                            System.out.println("error");
-                        }
+                    try {
+                        Socket clientsocket = new Socket(IPentered, 4711);
+                        this.client = new Client(clientsocket, username);
 
 
+                    }  catch (IOException e) {
+                        labelStatus.setText("could not connect\n to this address");
 
-                    stage.setScene(msg);
 
                     //todo Chris: interface for the member provided external from (?) server
                     // memberList.addAll("Chris", "Mario", "Jan", "Bitch", "AmArsch");
                     //todo CHris: interface for messenger label
                     // msgStatusLabel.setText("Dies ist ein test um formatierung ec zu testen");
                     //  msgStatusLabel.setTextFill(Color.RED);
+
+
+
+                    }
+                    if(client!=null){
+                        if(client.getSocket().isConnected()) {
+                            byte loginMessage[] = ("/login " + username +"\n").getBytes();
+                           try {
+                               client.getSocket().getOutputStream().write(loginMessage);
+                           }catch(IOException e){
+                               System.out.println("fuck");
+                           }
+                           client.receiveMessage(textAreaReceived);
+                            stage.setScene(msg);
+                        }
+                    }
+
+
 
 
                     //Nur zum Testen
@@ -121,7 +134,6 @@ public class ClientController {
                 labelStatus.setTextFill(Color.RED);
             }
         });
-
 
         this.butSend.setOnAction((ActionEvent event2) -> {
             //Text übernehmen
@@ -223,7 +235,7 @@ public class ClientController {
     }
 
     //Constructor mit Weitergabe der Stage
-    public ClientController(Stage stage){
+    public ClientController(Stage stage) {
         this.stage = stage;
     }
 
@@ -237,15 +249,15 @@ public class ClientController {
         this.login = login;
     }
 
-public void setLabelStatus(Label labelStatus){
-        this.labelStatus=labelStatus;
-}
+    public void setLabelStatus(Label labelStatus) {
+        this.labelStatus = labelStatus;
+    }
 
     public void setMsg(Scene msg) {
         this.msg = msg;
     }
 
-    public  void setButLogin(Button butLogin){
+    public void setButLogin(Button butLogin) {
         this.butLogin = butLogin;
     }
 
@@ -254,12 +266,13 @@ public void setLabelStatus(Label labelStatus){
     }
 
     public void setTfLoginUsr(TextField tfLoginUsr){
+
         this.tfLoginUsr = tfLoginUsr;
 
     }
 
-    public void setTfLoginIP(TextField tfLoginIP){
-        this.tfLoginIP =tfLoginIP;
+    public void setTfLoginIP(TextField tfLoginIP) {
+        this.tfLoginIP = tfLoginIP;
     }
 
 
@@ -267,7 +280,7 @@ public void setLabelStatus(Label labelStatus){
         this.butSend = butSend;
     }
 
-    public void setTfMessage(TextField tfMessage){
+    public void setTfMessage(TextField tfMessage) {
         this.tfMessage = tfMessage;
     }
 
