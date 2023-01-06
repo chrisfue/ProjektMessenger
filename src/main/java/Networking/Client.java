@@ -1,5 +1,6 @@
 package Networking;
 
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.io.*;
@@ -10,7 +11,7 @@ public class Client {
     private Socket socket;
     private String username;
 
-    private InputStreamReader incoming;
+
 
 
 
@@ -21,26 +22,28 @@ public class Client {
 
            this.socket = socket;
           this.username = username;
-         try{
-             this.incoming = new InputStreamReader(socket.getInputStream());
-         }catch(IOException e){
-             System.out.println("could not create stream");
 
-         }
 
        }
-/*
-       public void receiveMessage(TextField textfield){
+
+       public void receiveMessage(TextArea textMessages){
         new Thread(new Runnable() {
             @Override
             public void run(){
-            while(socket.isClosed()){
-
+            while(socket.isConnected()){
+               try{ InputStreamReader inputRead = new InputStreamReader(socket.getInputStream());
+                BufferedReader br = new BufferedReader(inputRead);
+                String bufferResponse = br.readLine();
+                textMessages.appendText(bufferResponse);}
+               catch(IOException e){
+                   e.printStackTrace();
+                   break;
+               }
             }
             }
-        }
+        }).start();
        }
-*/
+
 
     public Socket getSocket() {
         return socket;

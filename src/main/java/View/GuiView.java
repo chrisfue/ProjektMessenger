@@ -17,13 +17,13 @@ public class GuiView {
 
     private final ClientController clientController;
 
-    public  GuiView(ClientController clientController){this.clientController=clientController;}
-
-
+    public GuiView(ClientController clientController) {
+        this.clientController = clientController;
+    }
 
 
     //Login Fenster
-    public Parent loginWindow(){
+    public Parent loginWindow() {
         //Layout erstellen
         GridPane root = new GridPane();
         root.setPadding(new Insets(20));
@@ -32,12 +32,10 @@ public class GuiView {
         root.setVgap(10);
 
 
-
-
         //Textfeld für Scene definieren
         TextField tfLoginIP = new TextField();
         tfLoginIP.setPromptText("Bitte IP angeben...");
-        root.add(tfLoginIP, 0,0);
+        root.add(tfLoginIP, 0, 0);
 
         //Textfeld mit Controller verlinken
         this.clientController.setTfLoginIP(tfLoginIP);
@@ -45,22 +43,22 @@ public class GuiView {
         //Textfeld für Scene definieren
         TextField tfLoginUsr = new TextField();
         tfLoginUsr.setPromptText("Username eingeben");
-        root.add(tfLoginUsr,0,1);
+        root.add(tfLoginUsr, 0, 1);
 
         //Textfeld mit Controller verlinken
         this.clientController.setTfLoginUsr(tfLoginUsr);
 
         //Button für Scene definieren
         Button butLogin = new Button("Connect");
-        butLogin.setPrefSize(100,100);
-        root.add(butLogin,1,2);
+        butLogin.setPrefSize(100, 100);
+        root.add(butLogin, 1, 2);
 
         //Button mit Controller verlinken
         this.clientController.setButLogin(butLogin);
 
         //Label labelStatus für Scene definieren
         Label labelStatus = new Label();
-        root.add(labelStatus,0,2);
+        root.add(labelStatus, 0, 2);
 
         //Label labelStatus mit Controller verbinden
         this.clientController.setLabelStatus(labelStatus);
@@ -70,7 +68,7 @@ public class GuiView {
     }
 
     //Message Fenster
-    public Parent MessageWindow(){
+    public Parent MessageWindow() {
         GridPane root = new GridPane();
 
 
@@ -79,12 +77,13 @@ public class GuiView {
         tfMessage.setPromptText("Message...");
         tfMessage.setMaxWidth(200);
 
+
         //Textfeld tfMessage mit Controller verbinden
         this.clientController.setTfMessage(tfMessage);
 
         //TextArea textAreaReceoved für Scene definieren
         TextArea textAreaReceived = new TextArea("Letzte meldungen...");
-        textAreaReceived.setMaxSize(300,200);
+        textAreaReceived.setMaxSize(300, 200);
 
         //TextArea text mit Controller verbinden
         this.clientController.setTextAreaReceived(textAreaReceived);
@@ -101,7 +100,7 @@ public class GuiView {
         VBox msg = new VBox(10);
         msg.setLayoutX(10);
         msg.setLayoutY(10);
-        msg.getChildren().addAll(textAreaReceived,tfMessage,butSend);
+        msg.getChildren().addAll(textAreaReceived, tfMessage, butSend);
 
 
         return msg;
