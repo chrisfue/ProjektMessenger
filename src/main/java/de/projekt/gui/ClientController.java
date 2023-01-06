@@ -56,18 +56,23 @@ public class ClientController {
                 //Check dass beide Fenster befüllt sind
                 if(!(IPentered.isEmpty())&&!(username.isEmpty())){
 
+
                     //IP-Adresse auf Gültigkeit prüfen
                     IPAddressValidator validator = new IPAddressValidator();
                     if( IPAddressValidator.isValid(IPentered)){
 
+                        System.out.println("IP VALID!");
+
+                        //todo needed for Testing GUI
+/*
 
                     //Verbindung zu Server herstellen
                         try{
                             Socket clientsocket = new Socket(IPentered,4712);
-                           /* this.output = client.getOutputStream();
+                           *//* this.output = client.getOutputStream();
                             input = client.getInputStream();
 
-                            */
+                            *//*
                             this.client = new Client(clientsocket,username);
 
 
@@ -78,6 +83,8 @@ public class ClientController {
                         catch (IOException e){
                             System.out.println("error");
                         }
+
+                        */
                         stage.setScene(msg);
 
 
