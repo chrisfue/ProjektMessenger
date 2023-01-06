@@ -34,7 +34,7 @@ public class Client {
                try{ InputStreamReader inputRead = new InputStreamReader(socket.getInputStream());
                 BufferedReader br = new BufferedReader(inputRead);
                 String bufferResponse = br.readLine();
-                textMessages.appendText(bufferResponse);}
+                textMessages.appendText('\n' + bufferResponse);}
                catch(IOException e){
                    e.printStackTrace();
                    break;

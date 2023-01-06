@@ -63,7 +63,7 @@ public class ClientController {
 
                     //Verbindung zu Server herstellen
                     try {
-                        Socket clientsocket = new Socket(IPentered, 4712);
+                        Socket clientsocket = new Socket(IPentered, 4711);
                         this.client = new Client(clientsocket, username);
 
 
