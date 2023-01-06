@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import tools.IPAddressValidator;
@@ -64,22 +66,22 @@ public class ClientController {
 
         this.butLogin.setOnAction((ActionEvent event) -> {
 
-                String IPentered = tfLoginIP.getText();
-                String username = tfLoginUsr.getText();
+            String IPentered = tfLoginIP.getText();
+            String username = tfLoginUsr.getText();
 
 
-                //Check dass beide Fenster befüllt sind
-                if(!(IPentered.isEmpty())&&!(username.isEmpty())){
+            //Check dass beide Fenster befüllt sind
+            if (!(IPentered.isEmpty()) && !(username.isEmpty())) {
 
 
-                    //IP-Adresse auf Gültigkeit prüfen
-                    IPAddressValidator validator = new IPAddressValidator();
-                    if( IPAddressValidator.isValid(IPentered)){
+                //IP-Adresse auf Gültigkeit prüfen
+                IPAddressValidator validator = new IPAddressValidator();
+                if (IPAddressValidator.isValid(IPentered)) {
 
-                        //is only need for GUI debugging while server not running
-                        //System.out.println("IP VALID!");
+                    //is only need for GUI debugging while server not running
+                    //System.out.println("IP VALID!");
 
-                        //todo needed for Testing GUI
+                    //todo needed for Testing GUI
 /*
 
                     //Verbindung zu Server herstellen
@@ -101,42 +103,109 @@ public class ClientController {
                         }
 
                         */
-                        stage.setScene(msg);
+                    stage.setScene(msg);
 
-                        //todo Chris: interface for the member provided external from (?) server
-                       // memberList.addAll("Chris", "Mario", "Jan", "Bitch", "AmArsch");
-                        //todo CHris: interface for messenger label
-                       // msgStatusLabel.setText("Dies ist ein test um formatierung ec zu testen");
-                      //  msgStatusLabel.setTextFill(Color.RED);
+                    //todo Chris: interface for the member provided external from (?) server
+                    // memberList.addAll("Chris", "Mario", "Jan", "Bitch", "AmArsch");
+                    //todo CHris: interface for messenger label
+                    // msgStatusLabel.setText("Dies ist ein test um formatierung ec zu testen");
+                    //  msgStatusLabel.setTextFill(Color.RED);
 
 
-
-                      //Nur zum Testen
-                    } else{ //Wenn keine gültige IP-Adresse eingegeben wurde
-                        labelStatus.setText("Invalid IP-Format.. please try again");
-                        labelStatus.setTextFill(Color.RED);
-                    }
-
-                }else{ //Wenn mindestens eines der beiden Fenster leer ist
-                    labelStatus.setText("Please enter both IP \nand Username");
+                    //Nur zum Testen
+                } else { //Wenn keine gültige IP-Adresse eingegeben wurde
+                    labelStatus.setText("Invalid IP-Format.. please try again");
                     labelStatus.setTextFill(Color.RED);
                 }
+
+            } else { //Wenn mindestens eines der beiden Fenster leer ist
+                labelStatus.setText("Please enter both IP \nand Username");
+                labelStatus.setTextFill(Color.RED);
+            }
         });
 
-        this.butSend.setOnAction((ActionEvent event2)-> {
+
+        this.butSend.setOnAction((ActionEvent event2) -> {
             //Text übernehmen
             String textInput = tfMessage.getText();
             byte bmessage[] = (textInput + "\n").getBytes();
             //Text ausschicken
 
-            try{
+            try {
                 client.getSocket().getOutputStream().write(bmessage);
-            }catch (IOException e){
+            } catch (IOException e) {
 
             }
 
         });
+
+        this.tfLoginUsr.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.ENTER)) {
+                    String IPentered = tfLoginIP.getText();
+                    String username = tfLoginUsr.getText();
+
+
+                    //Check dass beide Fenster befüllt sind
+                    if (!(IPentered.isEmpty()) && !(username.isEmpty())) {
+
+
+                        //IP-Adresse auf Gültigkeit prüfen
+                        IPAddressValidator validator = new IPAddressValidator();
+                        if (IPAddressValidator.isValid(IPentered)) {
+
+                            //is only need for GUI debugging while server not running
+                            //System.out.println("IP VALID!");
+
+                            //todo needed for Testing GUI
+/*
+
+                    //Verbindung zu Server herstellen
+                        try{
+                            Socket clientsocket = new Socket(IPentered,4712);
+                           *//* this.output = client.getOutputStream();
+                            input = client.getInputStream();
+
+                            *//*
+                            this.client = new Client(clientsocket,username);
+
+
+
+                        }catch(UnknownHostException e){
+
+                        }
+                        catch (IOException e){
+                            System.out.println("error");
+                        }
+
+                        */
+                            stage.setScene(msg);
+
+                            //todo Chris: interface for the member provided external from (?) server
+                            // memberList.addAll("Chris", "Mario", "Jan", "Bitch", "AmArsch");
+                            //todo CHris: interface for messenger label
+                            // msgStatusLabel.setText("Dies ist ein test um formatierung ec zu testen");
+                            //  msgStatusLabel.setTextFill(Color.RED);
+
+
+                            //Nur zum Testen
+                        } else { //Wenn keine gültige IP-Adresse eingegeben wurde
+                            labelStatus.setText("Invalid IP-Format.. please try again");
+                            labelStatus.setTextFill(Color.RED);
+                        }
+
+                    } else { //Wenn mindestens eines der beiden Fenster leer ist
+                        labelStatus.setText("Please enter both IP \nand Username");
+                        labelStatus.setTextFill(Color.RED);
+                    }
+                }
+            }
+        });
+
+
     }
+
 
     public void setMemberList(ObservableList<String> memberList) {
         this.memberList = memberList;

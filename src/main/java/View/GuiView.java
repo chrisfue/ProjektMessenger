@@ -16,7 +16,6 @@ import javafx.scene.paint.Color;
 
 public class GuiView {
 
-    private Label msgStatusLabel;
     private final ClientController clientController;
 
     public  GuiView(ClientController clientController){this.clientController=clientController;}
@@ -95,7 +94,7 @@ public class GuiView {
         textAreaReceived.setEditable(false); //not allowed to write text inside the area or change the text inside
 
         //label erstellen
-        msgStatusLabel = new Label();
+        Label msgStatusLabel = new Label();
         //msgStatusLabel.setTextFill(Color.RED); //todo entfernen after debugging
 
 
