@@ -27,10 +27,10 @@ public class GuiView {
     public Parent loginWindow(){
         //Layout erstellen
         GridPane root = new GridPane();
-        root.setPadding(new Insets(20));
+        root.setPadding(new Insets(5));
 
-        root.setHgap(20);
-        root.setVgap(20);
+        root.setHgap(10);
+        root.setVgap(10);
         root.setAlignment(Pos.CENTER);
 
 
@@ -63,7 +63,7 @@ public class GuiView {
         butCancel.setPrefWidth(80);
 
         buttonBox.getChildren().addAll(butCancel,butLogin);
-        root.add(buttonBox,0,2);
+        root.add(buttonBox,0,3);
        // root.add(butLogin,1,2); //todo changer
 
 

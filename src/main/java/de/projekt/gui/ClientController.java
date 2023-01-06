@@ -3,6 +3,7 @@ package de.projekt.gui;
 
 import Networking.Client;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -47,6 +48,13 @@ public class ClientController {
     private Button butSend;
 
     public void init() {
+
+        this.butCancel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                stage.close();
+            }
+        });
 
         this.butLogin.setOnAction((ActionEvent event) -> {
 
