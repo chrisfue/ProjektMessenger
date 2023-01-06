@@ -23,7 +23,7 @@ import java.net.Socket;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
+//merged css into devJAn
 public class ClientController {
 
     //Definition für Displayzugriff
