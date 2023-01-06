@@ -76,7 +76,8 @@ public class ClientController {
                     IPAddressValidator validator = new IPAddressValidator();
                     if( IPAddressValidator.isValid(IPentered)){
 
-                        System.out.println("IP VALID!");
+                        //is only need for GUI debugging while server not running
+                        //System.out.println("IP VALID!");
 
                         //todo needed for Testing GUI
 /*
