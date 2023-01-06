@@ -2,6 +2,8 @@ package de.projekt.gui;
 
 
 import Networking.Client;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -45,7 +47,11 @@ public class ClientController {
     //MessageFenster
     private TextField tfMessage;
     private TextArea textAreaReceived;
+
+    private ObservableList<String> memberList = FXCollections.observableArrayList(); //liste für die Member
     private Button butSend;
+
+    private Label msgStatusLabel;
 
     public void init() {
 
@@ -96,6 +102,12 @@ public class ClientController {
                         */
                         stage.setScene(msg);
 
+                        //todo Chris: interface for the member provided external from (?) server
+                       // memberList.addAll("Chris", "Mario", "Jan", "Bitch", "AmArsch");
+                        //todo CHris: interface for messenger label
+                       // msgStatusLabel.setText("Dies ist ein test um formatierung ec zu testen");
+                      //  msgStatusLabel.setTextFill(Color.RED);
+
 
 
                       //Nur zum Testen
@@ -125,10 +137,17 @@ public class ClientController {
         });
     }
 
+    public void setMemberList(ObservableList<String> memberList) {
+        this.memberList = memberList;
+    }
 
     //Constructor mit Weitergabe der Stage
     public ClientController(Stage stage){
         this.stage = stage;
+    }
+
+    public void setMsgStatusLabel(Label msgStatusLabel) {
+        this.msgStatusLabel = msgStatusLabel;
     }
 
     //Setter für Elemente aus GUI

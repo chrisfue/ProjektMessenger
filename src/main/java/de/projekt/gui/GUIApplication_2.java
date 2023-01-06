@@ -18,7 +18,7 @@ public class GUIApplication_2 extends Application {
         GuiView guiView = new GuiView(clientController);
        //Scenes erstellen
         Scene login = new Scene(guiView.loginWindow(),250,180);
-        Scene msg = new Scene(guiView.MessageWindow(),400,300);
+        Scene msg = new Scene(guiView.MessageWindow(),500,350);
         //Scenes an Controller übergeben
         clientController.setLogin(login);
         clientController.setMsg(msg);
