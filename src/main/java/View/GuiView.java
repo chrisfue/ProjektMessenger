@@ -87,24 +87,34 @@ public class GuiView {
        //GridPane root = new GridPane(); //todo change
 
 
+        //TextArea textAreaReceoved für Scene definieren
+        TextArea textAreaReceived = new TextArea();
+        textAreaReceived.setMaxSize(300,200);
+        textAreaReceived.setPromptText("No incoming message...");
+        textAreaReceived.setEditable(false); //not allowed to write text inside the area or change the text inside
+
+        //TextArea für Angemeldete Member
+
+
+
         //Textfeld tfMessage für Scene definieren
         TextField tfMessage = new TextField();
         tfMessage.setPromptText("Message...");
-        tfMessage.setMaxWidth(200);
+        tfMessage.setPrefWidth((textAreaReceived.getMaxWidth()/ 6)*5);
 
         //Textfeld tfMessage mit Controller verbinden
         this.clientController.setTfMessage(tfMessage);
 
-        //TextArea textAreaReceoved für Scene definieren
-        TextArea textAreaReceived = new TextArea("Letzte meldungen...");
-        textAreaReceived.setMaxSize(300,200);
+
+
 
         //TextArea text mit Controller verbinden
         this.clientController.setTextAreaReceived(textAreaReceived);
 
         //Button butsend für scene definieren
         Button butSend = new Button("SEND");
-        butSend.setAlignment(Pos.CENTER);
+        butSend.setMaxWidth((textAreaReceived.getMaxWidth()/ 6));
+       //butSend.setAlignment(Pos.CENTER); //todo changer
 
         //Button butSend mit Controller verbinden
         this.clientController.setButSend(butSend);
@@ -112,9 +122,13 @@ public class GuiView {
 
         //Layout message window
         VBox msg = new VBox(10);
+        HBox hmiLayout = new HBox(10);
+        hmiLayout.getChildren().addAll(tfMessage,butSend);
+        hmiLayout.setAlignment(Pos.CENTER_LEFT);
         msg.setLayoutX(10);
         msg.setLayoutY(10);
-        msg.getChildren().addAll(textAreaReceived,tfMessage,butSend);
+        msg.getChildren().addAll(textAreaReceived,hmiLayout);
+        //msg.setAlignment(Pos.CENTER);
 
 
         return msg;
