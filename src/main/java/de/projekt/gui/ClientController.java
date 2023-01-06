@@ -37,6 +37,7 @@ public class ClientController {
     private TextField tfLoginUsr;       //Zugriff au
     private TextField tfLoginIP;        //Textfeld für IP
     private Button butLogin;            //Button für Login
+    private Button butCancel;           //Button vor cancel Login Application
     private Label labelStatus;
 
 
@@ -138,6 +139,10 @@ public void setLabelStatus(Label labelStatus){
 
     public  void setButLogin(Button butLogin){
         this.butLogin = butLogin;
+    }
+
+    public void setButCancel(Button butCancel) {
+        this.butCancel = butCancel;
     }
 
     public void setTfLoginUsr(TextField tfLoginUsr){

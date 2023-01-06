@@ -11,6 +11,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class GuiView {
@@ -28,8 +29,12 @@ public class GuiView {
         GridPane root = new GridPane();
         root.setPadding(new Insets(20));
 
-        root.setHgap(10);
-        root.setVgap(10);
+        root.setHgap(20);
+        root.setVgap(20);
+        root.setAlignment(Pos.CENTER);
+
+
+        HBox buttonBox = new HBox(10); //neded to pos both button in one grid
 
 
 
@@ -52,11 +57,19 @@ public class GuiView {
 
         //Button für Scene definieren
         Button butLogin = new Button("Connect");
-        butLogin.setPrefSize(100,100);
-        root.add(butLogin,1,2);
+        Button butCancel = new Button("CANCEL");
+        //butLogin.setPrefSize(100,100); //todo changer
+        butLogin.setPrefWidth(80);
+        butCancel.setPrefWidth(80);
+
+        buttonBox.getChildren().addAll(butCancel,butLogin);
+        root.add(buttonBox,0,2);
+       // root.add(butLogin,1,2); //todo changer
+
 
         //Button mit Controller verlinken
         this.clientController.setButLogin(butLogin);
+        this.clientController.setButCancel(butCancel);
 
         //Label labelStatus für Scene definieren
         Label labelStatus = new Label();
@@ -71,7 +84,7 @@ public class GuiView {
 
     //Message Fenster
     public Parent MessageWindow(){
-        GridPane root = new GridPane();
+       //GridPane root = new GridPane(); //todo change
 
 
         //Textfeld tfMessage für Scene definieren
