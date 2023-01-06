@@ -2,17 +2,16 @@ package de.projekt.gui;
 
 
 import Networking.Client;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import tools.IPAddressValidator;
@@ -21,7 +20,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class ClientController {
@@ -45,6 +45,8 @@ public class ClientController {
     private Button butCancel;           //Button vor cancel Login Application
     private Label labelStatus;
 
+    private ProgressIndicator prgIndicator; //progressindicator while waiting on server
+
 
     //MessageFenster
     private TextField tfMessage;
@@ -54,6 +56,10 @@ public class ClientController {
     private Button butSend;
 
     private Label msgStatusLabel;
+
+    public void setPrgIndicator(ProgressIndicator prgIndicator) {
+        this.prgIndicator = prgIndicator;
+    }
 
     public void init() {
 
@@ -66,6 +72,7 @@ public class ClientController {
 
         this.butLogin.setOnAction((ActionEvent event) -> {
 
+
             String IPentered = tfLoginIP.getText();
             String username = tfLoginUsr.getText();
 
@@ -74,35 +81,26 @@ public class ClientController {
             if (!(IPentered.isEmpty()) && !(username.isEmpty())) {
 
 
+
                 //IP-Adresse auf Gültigkeit prüfen
                 IPAddressValidator validator = new IPAddressValidator();
                 if (IPAddressValidator.isValid(IPentered)) {
 
-                    //is only need for GUI debugging while server not running
-                    //System.out.println("IP VALID!");
-
-                    //todo needed for Testing GUI
-/*
-
                     //Verbindung zu Server herstellen
                         try{
-                            Socket clientsocket = new Socket(IPentered,4712);
-                           *//* this.output = client.getOutputStream();
-                            input = client.getInputStream();
 
-                            *//*
+                            Socket clientsocket = new Socket(IPentered,4712);
+
                             this.client = new Client(clientsocket,username);
 
-
-
-                        }catch(UnknownHostException e){
 
                         }
                         catch (IOException e){
                             System.out.println("error");
                         }
 
-                        */
+
+
                     stage.setScene(msg);
 
                     //todo Chris: interface for the member provided external from (?) server
@@ -143,12 +141,15 @@ public class ClientController {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)) {
+
+                    prgIndicator.setVisible(true);
                     String IPentered = tfLoginIP.getText();
                     String username = tfLoginUsr.getText();
 
 
                     //Check dass beide Fenster befüllt sind
                     if (!(IPentered.isEmpty()) && !(username.isEmpty())) {
+
 
 
                         //IP-Adresse auf Gültigkeit prüfen
@@ -180,6 +181,8 @@ public class ClientController {
                         }
 
                         */
+
+
                             stage.setScene(msg);
 
                             //todo Chris: interface for the member provided external from (?) server
@@ -203,6 +206,14 @@ public class ClientController {
             }
         });
 
+
+        this.tfLoginUsr.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                prgIndicator.setVisible(true);
+                stage.show();
+            }
+        });
 
     }
 
@@ -244,6 +255,7 @@ public void setLabelStatus(Label labelStatus){
 
     public void setTfLoginUsr(TextField tfLoginUsr){
         this.tfLoginUsr = tfLoginUsr;
+
     }
 
     public void setTfLoginIP(TextField tfLoginIP){

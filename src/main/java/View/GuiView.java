@@ -3,7 +3,9 @@ package View;
 import de.projekt.gui.ClientController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,14 +29,22 @@ public class GuiView {
     public Parent loginWindow(){
         //Layout erstellen
         GridPane root = new GridPane();
-        root.setPadding(new Insets(5));
+        root.setPadding(new Insets(10));
 
         root.setHgap(10);
         root.setVgap(10);
         root.setAlignment(Pos.CENTER);
 
 
+
         HBox buttonBox = new HBox(10); //neded to pos both button in one grid
+
+
+        //progress Indicator
+       ProgressIndicator prgIndicator = new ProgressIndicator();
+        //prgIndicator.setDisable(true); //todo alles entfernen Thread Problem
+        prgIndicator.setVisible(false);
+
 
 
 
@@ -64,7 +74,7 @@ public class GuiView {
 
         buttonBox.getChildren().addAll(butCancel,butLogin);
         root.add(buttonBox,0,3);
-       // root.add(butLogin,1,2); //todo changer
+
 
 
         //Button mit Controller verlinken
@@ -75,8 +85,16 @@ public class GuiView {
         Label labelStatus = new Label();
         root.add(labelStatus,0,2);
 
+        //progress indicator hinzufügen
+        root.add(prgIndicator,0,2);
+        GridPane.setHalignment(prgIndicator, HPos.CENTER); //setzt in dem jeweiligen feld das alignment
+
+
         //Label labelStatus mit Controller verbinden
         this.clientController.setLabelStatus(labelStatus);
+
+        //progressindicator mit controller verbinden
+        this.clientController.setPrgIndicator(prgIndicator);
 
         return root;
 
@@ -102,11 +120,12 @@ public class GuiView {
         //liste erstellen
         ObservableList<String> memberList = FXCollections.observableArrayList();
 
+
         //Viewer der liste erstellen und befüllen
         ListView<String> listView = new ListView<String>();
         listView.setMaxSize(150,200);
-        listView.setItems(memberList);
 
+        listView.setItems(memberList);
 
 
         //Textfeld tfMessage für Scene definieren
@@ -130,7 +149,7 @@ public class GuiView {
         //Button butsend für scene definieren
         Button butSend = new Button("SEND");
         butSend.setMaxWidth((textAreaReceived.getMaxWidth()/ 6));
-       //butSend.setAlignment(Pos.CENTER); //todo changer
+
 
         //Button butSend mit Controller verbinden
         this.clientController.setButSend(butSend);
