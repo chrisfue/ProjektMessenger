@@ -115,7 +115,7 @@ public class ClientController {
                            }catch(IOException e){
                                System.out.println("fuck");
                            }
-                           client.receiveMessage(textAreaReceived);
+                           client.receiveMessage(textAreaReceived, memberList);
                             stage.setScene(msg);
                         }
                     }
@@ -149,7 +149,8 @@ public class ClientController {
 
         });
 
-        this.tfLoginUsr.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+   /*     this.tfLoginUsr.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)) {
@@ -192,7 +193,7 @@ public class ClientController {
                             System.out.println("error");
                         }
 
-                        */
+
 
 
                             stage.setScene(msg);
@@ -216,7 +217,7 @@ public class ClientController {
                     }
                 }
             }
-        });
+        });*/
 
 
         this.tfLoginUsr.setOnMouseReleased(new EventHandler<MouseEvent>() {

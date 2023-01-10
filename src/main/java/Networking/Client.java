@@ -1,5 +1,7 @@
 package Networking;
 
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -26,21 +28,43 @@ public class Client {
 
        }
 
-       public void receiveMessage(TextArea textMessages){
+       public void receiveMessage(TextArea textMessages, ObservableList<String> userNAmesOnline){
         new Thread(new Runnable() {
             @Override
             public void run(){
-            while(socket.isConnected()){
-               try{ InputStreamReader inputRead = new InputStreamReader(socket.getInputStream());
-                BufferedReader br = new BufferedReader(inputRead);
-                String bufferResponse = br.readLine();
-                textMessages.appendText('\n' + bufferResponse);}
-               catch(IOException e){
+                try {
+                    InputStreamReader inputRead = new InputStreamReader(socket.getInputStream());
+                    BufferedReader br = new BufferedReader(inputRead);
+                    while (socket.isConnected()) {
+
+                        String bufferResponse = br.readLine();
+                        if (bufferResponse != null) {
+                            if (bufferResponse.startsWith("Users:")) {
+                                Platform.runLater(() -> {
+                                    userNAmesOnline.clear();
+                                    String userOnline = bufferResponse.substring(6);
+                                    String[] onlineUsers = userOnline.split(",");
+                                    for (String nameOnline : onlineUsers) {
+
+                                        userNAmesOnline.add(nameOnline);
+
+                                    }
+                                });
+
+                            }else{
+                                Platform.runLater(()->{
+                                    textMessages.appendText('\n' + bufferResponse);
+                                });
+                            }
+
+                        }    }
+
+                }catch(IOException e){
                    e.printStackTrace();
-                   break;
+                  // break;
                }
             }
-            }
+           // }
         }).start();
        }
 
