@@ -144,8 +144,10 @@ public class GuiView {
         //Textfeld tfMessage mit Controller verbinden
         this.clientController.setTfMessage(tfMessage);
 
-        //listvierwer mit Controller verbinden //todo notwendig?
-        this.clientController.setMemberList(memberList);
+        //Listviewer und liste mit Controller verbinden //todo notwendig?
+        this.clientController.setMemberList(memberList); //???
+
+        this.clientController.setListView(listView);
 
         //label mit controller verbinden
         this.clientController.setMsgStatusLabel(msgStatusLabel);

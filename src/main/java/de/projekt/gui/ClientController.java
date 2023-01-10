@@ -117,6 +117,8 @@ public class ClientController {
                     // msgStatusLabel.setText("Dies ist ein test um formatierung ec zu testen");
                     //  msgStatusLabel.setTextFill(Color.RED);
 
+                        //todo neu selectedMember ist ein String der den Namen der auswahl des Users aus Member Liste zurückgibt!
+
 
 
                     }
@@ -209,7 +211,9 @@ public class ClientController {
                         */
 
 
+
                             stage.setScene(msg);
+                            memberList.addAll("Chris", "Mario", "Jan", "Bitch", "AmArsch");
 
                             //todo Chris: interface for the member provided external from (?) server
                             // memberList.addAll("Chris", "Mario", "Jan", "Bitch", "AmArsch");
@@ -247,6 +251,8 @@ public class ClientController {
             public void handle(MouseEvent event) {
                 //ermöglicht das ausgewählte item auszugeben aus der Memberlist
                 selectedMember = listView.getSelectionModel().getSelectedItem();
+
+                System.out.printf(selectedMember);
 
             }
         });
