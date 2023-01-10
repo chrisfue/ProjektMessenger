@@ -38,6 +38,13 @@ public class ClientController {
 
     private Client client;
 
+    private String titleWindow;
+
+
+
+    //selected member from visible member list
+    private String selectedMember;
+
     //Loginfenster:
     private TextField tfLoginUsr;       //Zugriff au
     private TextField tfLoginIP;        //Textfeld für IP
@@ -52,10 +59,16 @@ public class ClientController {
     private TextField tfMessage;
     private TextArea textAreaReceived;
 
-    private ObservableList<String> memberList = FXCollections.observableArrayList(); //liste für die Member
+    //listen Element für die Member
+    private ObservableList<String> memberList = FXCollections.observableArrayList();
+
+    //Listen Container
+    ListView<String> listView = new ListView<String>();
     private Button butSend;
 
     private Label msgStatusLabel;
+
+
 
     public void setPrgIndicator(ProgressIndicator prgIndicator) {
         this.prgIndicator = prgIndicator;
@@ -149,6 +162,7 @@ public class ClientController {
 
         });
 
+        //todo Jan: muss noch eventhandler auf maouse klicked anpassen
         this.tfLoginUsr.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -219,6 +233,7 @@ public class ClientController {
         });
 
 
+        //needed to show progress indicator without own thread
         this.tfLoginUsr.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -227,11 +242,27 @@ public class ClientController {
             }
         });
 
+        this.listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                //ermöglicht das ausgewählte item auszugeben aus der Memberlist
+                selectedMember = listView.getSelectionModel().getSelectedItem();
+
+            }
+        });
     }
 
 
+    public void setListView(ListView<String> listView) {
+        this.listView = listView;
+    }
+
     public void setMemberList(ObservableList<String> memberList) {
         this.memberList = memberList;
+    }
+
+    public void setSelectedMember(String selectedMember) {
+        this.selectedMember = selectedMember;
     }
 
     //Constructor mit Weitergabe der Stage
@@ -248,6 +279,8 @@ public class ClientController {
     public void setLogin(Scene login) {
         this.login = login;
     }
+
+
 
     public void setLabelStatus(Label labelStatus) {
         this.labelStatus = labelStatus;
@@ -286,5 +319,14 @@ public class ClientController {
 
     public void setTextAreaReceived(TextArea textAreaReceived) {
         this.textAreaReceived = textAreaReceived;
+    }
+
+//-----------------------additional Function prototypes------------------------
+    public void setTitleWindow(String titleWindow) {
+        this.titleWindow = titleWindow;
+        setWindowTitle();
+    }
+    private void setWindowTitle(){
+        stage.setTitle(this.titleWindow);
     }
 }

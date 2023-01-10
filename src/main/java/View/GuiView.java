@@ -20,6 +20,9 @@ public class GuiView {
 
     private final ClientController clientController;
 
+    private String userName;
+    private String selectedMember;
+
     public GuiView(ClientController clientController) {
         this.clientController = clientController;
     }
@@ -34,6 +37,8 @@ public class GuiView {
         root.setHgap(10);
         root.setVgap(10);
         root.setAlignment(Pos.CENTER);
+
+
 
 
 
@@ -63,6 +68,9 @@ public class GuiView {
         //Textfeld mit Controller verlinken
         this.clientController.setTfLoginUsr(tfLoginUsr);
 
+        //Window name aendern
+        this.clientController.setTitleWindow(tfLoginUsr.getText());
+        //todo ändern
         //Button für Scene definieren
         Button butLogin = new Button("Connect");
         Button butCancel = new Button("CANCEL");
@@ -123,7 +131,9 @@ public class GuiView {
         ListView<String> listView = new ListView<String>();
         listView.setMaxSize(150,200);
 
+        //schreibt die memberListe in das ListView element >> in der GUI
         listView.setItems(memberList);
+
 
 
         //Textfeld tfMessage für Scene definieren
@@ -134,7 +144,7 @@ public class GuiView {
         //Textfeld tfMessage mit Controller verbinden
         this.clientController.setTfMessage(tfMessage);
 
-        //listvierwer mit Controller verbinden
+        //listvierwer mit Controller verbinden //todo notwendig?
         this.clientController.setMemberList(memberList);
 
         //label mit controller verbinden
@@ -174,6 +184,7 @@ public class GuiView {
         msg.setLayoutY(10);
         msg.getChildren().addAll(areaLayout,labelLayout,hmiLayout);
         //msg.setAlignment(Pos.CENTER);
+
 
 
         return msg;
