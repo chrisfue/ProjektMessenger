@@ -14,6 +14,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import tools.IPAddressValidator;
 
 import java.io.IOException;
@@ -136,7 +137,10 @@ public class ClientController {
         });
 
         this.butSend.setOnAction((ActionEvent event2) -> {
-            //Text übernehmen
+
+
+
+           /* //Text übernehmen
             String textInput = tfMessage.getText();
             byte bmessage[] = (textInput + "\n").getBytes();
             //Text ausschicken
@@ -145,10 +149,15 @@ public class ClientController {
                 client.getSocket().getOutputStream().write(bmessage);
             } catch (IOException e) {
 
-            }
+            }*/
+            this.sendMessage();
 
         });
-
+        /*field.setOnKeyPressed( event -> {
+  if( event.getCode() == KeyCode.ENTER ) {
+    doSomething();
+  }
+} );*/
 
    /*     this.tfLoginUsr.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -228,8 +237,39 @@ public class ClientController {
             }
         });
 
-    }
+        this.stage.setOnCloseRequest((WindowEvent close)->{
+            String textInput = tfMessage.getText();
+            byte bmessage[] = ("/logout "+ this.client.getUsername() + "\n").getBytes();
+            //Text ausschicken
 
+            try {
+                client.getSocket().getOutputStream().write(bmessage);
+            } catch (IOException e) {
+e.printStackTrace();
+            }
+            try{
+                this.client.getSocket().close();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        });
+
+    }
+    public void sendMessage(){
+
+
+
+        String textInput = tfMessage.getText();
+        byte bmessage[]= (textInput + "\n").getBytes();
+        try {
+            this.client.getSocket().getOutputStream().write(bmessage);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+      //clear Textfield
+        tfMessage.clear();
+    }
 
     public void setMemberList(ObservableList<String> memberList) {
         this.memberList = memberList;

@@ -39,10 +39,10 @@ public class Client {
 
                         String bufferResponse = br.readLine();
                         if (bufferResponse != null) {
-                            if (bufferResponse.startsWith("Users:")) {
+                            if (bufferResponse.startsWith("/Users:")) {
                                 Platform.runLater(() -> {
                                     userNAmesOnline.clear();
-                                    String userOnline = bufferResponse.substring(6);
+                                    String userOnline = bufferResponse.substring(7);
                                     String[] onlineUsers = userOnline.split(",");
                                     for (String nameOnline : onlineUsers) {
 
