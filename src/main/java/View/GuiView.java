@@ -16,10 +16,12 @@ import java.nio.charset.Charset;
 
 /***
  *  The View Class uses JavaFx and contains all initializations and methods of various objects contained in the GUI.
+ *
  */
 public class GuiView {
 
     private final ClientController clientController;
+
 
     private String userName;
     private String selectedMember;
@@ -31,7 +33,7 @@ public class GuiView {
 
     /***
      * Bind the clientController of Class View and Controller with each-other.
-     * @param clientController
+     * @param clientController clientController of view class
      */
     public GuiView(ClientController clientController) {
         this.clientController = clientController;
@@ -42,7 +44,7 @@ public class GuiView {
 
     /***
      * <code>loginCode</code> contains the Login Scene with the objects
-     * @return
+     * @return the loginWindow as parent
      */
     public Parent loginWindow() {
         //Layout erstellen
@@ -129,7 +131,7 @@ public class GuiView {
 
     /***
      * Bind the String of the Emoji with the String of the Controller class
-     * @param emojiPoo
+     * @param emojiPoo string of unicode that contains an emoji
      */
     public void setEmojiPoo(String emojiPoo) {
         this.emojiPoo = emojiPoo;
@@ -137,7 +139,7 @@ public class GuiView {
 
     /***
      * Bind the String of the Emoji with the String of the Controller class
-     * @param emojiSmile
+     * @param emojiSmile string of unicode that contains the smile emoji
      */
     public void setEmojiSmile(String emojiSmile) {
         this.emojiSmile = emojiSmile;

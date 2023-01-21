@@ -28,7 +28,6 @@ import java.util.Arrays;
 /***
  * ClientController Class controls and bind all functions provided by the GUI and the Client itself.
  * It also starts the server Connection.
- *
  */
 public class ClientController {
 
