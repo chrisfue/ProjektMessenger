@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.charset.Charset;
+import java.util.Arrays;
 
 //merged css into devJAn
 public class ClientController {
@@ -73,6 +74,11 @@ public class ClientController {
 
     private Label msgStatusLabel;
 
+    //for emojis
+    private String emojiPoo;
+
+    private String emojiSmile;
+    byte[] b_emojiSmile;
 
 
     public void setPrgIndicator(ProgressIndicator prgIndicator) {
@@ -278,18 +284,22 @@ public class ClientController {
         butSmile.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                //testbench
-                //
-                 byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0x81};
-                //byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x92, (byte)0xA9};
 
-                // \xF0\x9F\x92\xA9
-                String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
-                textAreaReceived.setStyle("-fx-font-size: 30");
+                String Text = tfMessage.getText();
 
-                textAreaReceived.setFont(Font.font("Arial", FontWeight.NORMAL, 50));
+                //interessante möglichkeit
+                //tfMessage.setText(Text + " " + (new String(b_emojiSmile, Charset.forName("UTF-8"))));
 
-                textAreaReceived.setText(emoji);
+                tfMessage.setText(emojiSmile);
+            }
+        });
+
+        butPoo.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                tfMessage.setText(emojiPoo);
+
             }
         });
 
@@ -380,6 +390,18 @@ public class ClientController {
 
     public void setButPOO(Button butPoo) {
         this.butPoo = butPoo;
+    }
+
+    public void setEmojiPoo(String emojiPoo) {
+        this.emojiPoo = emojiPoo;
+    }
+
+    public void setEmojiSmile(String emojiSmile) {
+        this.emojiSmile = emojiSmile;
+    }
+
+    public void setB_emojiSmile(byte[] b_emojiSmile) {
+        this.b_emojiSmile = b_emojiSmile;
     }
 }
 

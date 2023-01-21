@@ -21,6 +21,12 @@ public class GuiView {
     private String userName;
     private String selectedMember;
 
+    private String emojiPoo;
+
+    private String emojiSmile;
+    byte[] b_emojiSmile;
+
+
     public GuiView(ClientController clientController) {
         this.clientController = clientController;
     }
@@ -109,21 +115,28 @@ public class GuiView {
 
     //Message Fenster
 
+    public void setEmojiPoo(String emojiPoo) {
+        this.emojiPoo = emojiPoo;
+    }
+
+    public void setEmojiSmile(String emojiSmile) {
+        this.emojiSmile = emojiSmile;
+    }
+
     public Parent MessageWindow(){
 
 
+        //todo
         //---------- könnte man in eine eigene Klasse geben-----------
 
 
-
-
-        //poo
+        //poo Emoji initialisierung
         byte[] b_emojiPoo = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x92, (byte)0xA9};
-        String emojiPoo = new String(b_emojiPoo, Charset.forName("UTF-8"));
+         emojiPoo = new String(b_emojiPoo, Charset.forName("UTF-8"));
 
-        //smile
-        byte[] b_emojiSmile = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0x81};
-        String emojiSmile = new String(b_emojiSmile, Charset.forName("UTF-8"));
+        //smile Emoji initialisierung
+        b_emojiSmile = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0x81};
+         emojiSmile = new String(b_emojiSmile, Charset.forName("UTF-8"));
 
         //-----------------------------
 
@@ -135,7 +148,7 @@ public class GuiView {
 
         //label erstellen
         Label msgStatusLabel = new Label();
-        //msgStatusLabel.setTextFill(Color.RED); //todo entfernen after debugging
+
 
 
 //---------------------ListView für Angemeldete Member---------------------------------
@@ -150,12 +163,34 @@ public class GuiView {
         listView.setItems(memberList);
 
 
-
+//---------------------Definitions der verschiedenen Teile der GUI------------------
         //Textfeld tfMessage für Scene definieren
         TextField tfMessage = new TextField();
         tfMessage.setPromptText("Message...");
         tfMessage.setPrefWidth((textAreaReceived.getMaxWidth()/ 6)*5);
 
+
+        //Button butsend für scene definieren
+        Button butSend = new Button("SEND");
+        butSend.setMaxWidth((textAreaReceived.getMaxWidth()/ 6));
+
+         Button butEmojiSmile = new Button(emojiSmile);
+         butEmojiSmile.setMaxWidth((textAreaReceived.getMaxWidth()/ 6));
+
+         Button butEmojiPoo = new Button(emojiPoo);
+        butEmojiSmile.setMaxWidth((textAreaReceived.getMaxWidth()/ 6));
+        butEmojiPoo.setAlignment(Pos.BOTTOM_CENTER);
+
+
+//---------------Objekte mit Controller verbinden-------------------
+        this.clientController.setButSend(butSend);
+        this.clientController.setButSMILE(butEmojiSmile);
+        this.clientController.setButPOO(butEmojiPoo);
+
+        this.clientController.setEmojiPoo(emojiPoo);
+        this.clientController.setEmojiSmile(emojiSmile);
+
+        this.clientController.setB_emojiSmile(b_emojiSmile);
         //Textfeld tfMessage mit Controller verbinden
         this.clientController.setTfMessage(tfMessage);
 
@@ -171,30 +206,14 @@ public class GuiView {
         //TextArea text mit Controller verbinden
         this.clientController.setTextAreaReceived(textAreaReceived);
 
-        //Button butsend für scene definieren
-        Button butSend = new Button("SEND");
-        butSend.setMaxWidth((textAreaReceived.getMaxWidth()/ 6));
-
-         Button butEmojiSmile = new Button(emojiSmile);
-         butEmojiSmile.setMaxWidth((textAreaReceived.getMaxWidth()/ 6));
-
-         Button butEmojiPoo = new Button(emojiPoo);
-        butEmojiSmile.setMaxWidth((textAreaReceived.getMaxWidth()/ 6));
-        butEmojiPoo.setAlignment(Pos.CENTER);
-
-
-        //Button butSend mit Controller verbinden
-        this.clientController.setButSend(butSend);
-
-        this.clientController.setButSMILE(butEmojiSmile);
-        this.clientController.setButPOO(butEmojiPoo);
-
+//-----------------------Layouts anpassen und einstellen---------------------------
 
         //Layout message window
         VBox msg = new VBox(10);
         HBox areaLayout = new HBox(10);
         HBox labelLayout = new HBox(10);
         HBox hmiLayout = new HBox(10);
+        HBox emojiLayout = new HBox(10);
 
         //layout interaction
         hmiLayout.getChildren().addAll(tfMessage,butSend);
@@ -206,10 +225,13 @@ public class GuiView {
         labelLayout.getChildren().add(msgStatusLabel);
         labelLayout.setAlignment(Pos.CENTER);
 
+        //layout for emojis
+        emojiLayout.getChildren().addAll(butEmojiSmile,butEmojiPoo);
+        emojiLayout.setAlignment(Pos.CENTER_LEFT);
         //main layout of the nodes
         msg.setLayoutX(10);
         msg.setLayoutY(10);
-        msg.getChildren().addAll(areaLayout,labelLayout,butEmojiSmile,hmiLayout);
+        msg.getChildren().addAll(areaLayout,labelLayout, emojiLayout,hmiLayout);
         //msg.setAlignment(Pos.CENTER);
 
 
