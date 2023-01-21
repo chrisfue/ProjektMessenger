@@ -161,27 +161,13 @@ public class ClientController {
             }
         });
 
-        this.butSend.setOnAction((ActionEvent event2) -> {
-            //Text übernehmen
-            String textInput = tfMessage.getText();
-            byte bmessage[] = (textInput + "\n").getBytes();
-            //Text ausschicken
-
-            try {
-                client.getSocket().getOutputStream().write(bmessage);
-            } catch (IOException e) {
-
-            }
-
-        });
-
         //todo Jan: muss noch eventhandler auf maouse klicked anpassen
         this.tfLoginUsr.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)) {
 
-                    prgIndicator.setVisible(true);
+
                     String IPentered = tfLoginIP.getText();
                     String username = tfLoginUsr.getText();
 
@@ -198,43 +184,28 @@ public class ClientController {
                         IPAddressValidator validator = new IPAddressValidator();
                         if (IPAddressValidator.isValid(IPentered)) {
 
-                            //is only need for GUI debugging while server not running
-                            //System.out.println("IP VALID!");
+                            //Verbindung zu Server herstellen
 
-                            //todo needed for Testing GUI
-/*
-
-                    //Verbindung zu Server herstellen
-                        try{
-                            Socket clientsocket = new Socket(IPentered,4712);
-                           *//* this.output = client.getOutputStream();
-                            input = client.getInputStream();
-
-                            *//*
-                            this.client = new Client(clientsocket,username);
+                            try {
+                                Socket clientsocket = new Socket(IPentered, 4711);
+                                client = new Client(clientsocket, username);
 
 
-
-                        }catch(UnknownHostException e){
-
-                        }
-                        catch (IOException e){
-                            System.out.println("error");
-                        }
-
-                        */
-
-
-
-                            stage.setScene(msg);
-                            //todo for debugging
-                            //memberList.addAll("Chris", "Mario", "Jan", "Bitch", "AmArsch");
-
-                            //todo Chris:
-                            // memberList.addAll("Chris", "Mario", "Jan", "Bitch", "AmArsch");
-
-
-
+                            }  catch (IOException e) {
+                                labelStatus.setText("could not connect\n to this address");
+                            }
+                            if(client!=null){
+                                if(client.getSocket().isConnected()) {
+                                    byte loginMessage[] = ("/login " + username +"\n").getBytes();
+                                    try {
+                                        client.getSocket().getOutputStream().write(loginMessage);
+                                    }catch(IOException e){
+                                        System.out.println("fuck");
+                                    }
+                                    client.receiveMessage(textAreaReceived);
+                                    stage.setScene(msg);
+                                }
+                            }
                             //Nur zum Testen
                         } else { //Wenn keine gültige IP-Adresse eingegeben wurde
                             labelStatus.setText("Invalid IP-Format.. please try again");
@@ -247,6 +218,21 @@ public class ClientController {
                     }
                 }
             }
+        });
+
+
+        this.butSend.setOnAction((ActionEvent event2) -> {
+            //Text übernehmen
+            String textInput = tfMessage.getText();
+            byte bmessage[] = (textInput + "\n").getBytes();
+            //Text ausschicken
+
+            try {
+                client.getSocket().getOutputStream().write(bmessage);
+            } catch (IOException e) {
+
+            }
+
         });
 
 
