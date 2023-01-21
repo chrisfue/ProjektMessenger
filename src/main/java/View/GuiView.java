@@ -14,6 +14,9 @@ import javafx.scene.layout.VBox;
 
 import java.nio.charset.Charset;
 
+/***
+ *  The View Class uses JavaFx and contains all initializations and methods of various objects contained in the GUI.
+ */
 public class GuiView {
 
     private final ClientController clientController;
@@ -26,13 +29,21 @@ public class GuiView {
     private String emojiSmile;
     byte[] b_emojiSmile;
 
-
+    /***
+     * Bind the clientController of Class View and Controller with each-other.
+     * @param clientController
+     */
     public GuiView(ClientController clientController) {
         this.clientController = clientController;
     }
 
 
     //Login Fenster
+
+    /***
+     * <code>loginCode</code> contains the Login Scene with the objects
+     * @return
+     */
     public Parent loginWindow() {
         //Layout erstellen
         GridPane root = new GridPane();
@@ -56,6 +67,7 @@ public class GuiView {
 
 
         //Textfeld für Scene definieren
+
         TextField tfLoginIP = new TextField();
         tfLoginIP.setPromptText("Bitte IP angeben...");
         root.add(tfLoginIP, 0, 0);
@@ -115,14 +127,26 @@ public class GuiView {
 
     //Message Fenster
 
+    /***
+     * Bind the String of the Emoji with the String of the Controller class
+     * @param emojiPoo
+     */
     public void setEmojiPoo(String emojiPoo) {
         this.emojiPoo = emojiPoo;
     }
 
+    /***
+     * Bind the String of the Emoji with the String of the Controller class
+     * @param emojiSmile
+     */
     public void setEmojiSmile(String emojiSmile) {
         this.emojiSmile = emojiSmile;
     }
 
+    /***
+     * <code>MessageWindow</code> contains all Object of the Messenger Window
+     * @return it returns the MesageWindow as parent
+     */
     public Parent MessageWindow(){
 
 
