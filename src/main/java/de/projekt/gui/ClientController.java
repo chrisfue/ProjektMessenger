@@ -2,7 +2,6 @@ package de.projekt.gui;
 
 
 import Networking.Client;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +12,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import tools.IPAddressValidator;
 
@@ -20,8 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.nio.charset.Charset;
 
 //merged css into devJAn
 public class ClientController {
@@ -50,6 +50,11 @@ public class ClientController {
     private TextField tfLoginIP;        //Textfeld für IP
     private Button butLogin;            //Button für Login
     private Button butCancel;           //Button vor cancel Login Application
+
+    private  Button butSmile;
+
+    private Button butPoo;
+
     private Label labelStatus;
 
     private ProgressIndicator prgIndicator; //progressindicator while waiting on server
@@ -90,6 +95,8 @@ public class ClientController {
             String username = tfLoginUsr.getText();
 
 
+
+
             //Check dass beide Fenster befüllt sind
             if (!(IPentered.isEmpty()) && !(username.isEmpty())) {
 
@@ -111,13 +118,11 @@ public class ClientController {
                         labelStatus.setText("could not connect\n to this address");
 
 
-                    //todo Chris: interface for the member provided external from (?) server
+                    //todo Chris:
                     // memberList.addAll("Chris", "Mario", "Jan", "Bitch", "AmArsch");
-                    //todo CHris: interface for messenger label
-                    // msgStatusLabel.setText("Dies ist ein test um formatierung ec zu testen");
-                    //  msgStatusLabel.setTextFill(Color.RED);
 
-                        //todo neu selectedMember ist ein String der den Namen der auswahl des Users aus Member Liste zurückgibt!
+
+                        //todo neu: selectedMember ist ein String der den Namen der auswahl des Users aus Member Liste zurückgibt!
 
 
 
@@ -174,6 +179,9 @@ public class ClientController {
                     String IPentered = tfLoginIP.getText();
                     String username = tfLoginUsr.getText();
 
+                    //setzt den Title vom Messenger auf den Username
+                    setTitleWindow("Angemeldeter User: " + username);
+
 
                     //Check dass beide Fenster befüllt sind
                     if (!(IPentered.isEmpty()) && !(username.isEmpty())) {
@@ -213,13 +221,12 @@ public class ClientController {
 
 
                             stage.setScene(msg);
-                            memberList.addAll("Chris", "Mario", "Jan", "Bitch", "AmArsch");
+                            //todo for debugging
+                            //memberList.addAll("Chris", "Mario", "Jan", "Bitch", "AmArsch");
 
-                            //todo Chris: interface for the member provided external from (?) server
+                            //todo Chris:
                             // memberList.addAll("Chris", "Mario", "Jan", "Bitch", "AmArsch");
-                            //todo CHris: interface for messenger label
-                            // msgStatusLabel.setText("Dies ist ein test um formatierung ec zu testen");
-                            //  msgStatusLabel.setTextFill(Color.RED);
+
 
 
                             //Nur zum Testen
@@ -245,6 +252,13 @@ public class ClientController {
                 stage.show();
             }
         });
+        this.tfLoginUsr.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                prgIndicator.setVisible(true);
+                stage.show();
+            }
+        });
 
         this.listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -256,6 +270,30 @@ public class ClientController {
 
             }
         });
+
+        //todo entfernen
+        //-----------------------------------additional Functions
+
+
+        butSmile.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                //testbench
+                //
+                 byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0x81};
+                //byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x92, (byte)0xA9};
+
+                // \xF0\x9F\x92\xA9
+                String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
+                textAreaReceived.setStyle("-fx-font-size: 30");
+
+                textAreaReceived.setFont(Font.font("Arial", FontWeight.NORMAL, 50));
+
+                textAreaReceived.setText(emoji);
+            }
+        });
+
+
     }
 
 
@@ -335,4 +373,13 @@ public class ClientController {
     private void setWindowTitle(){
         stage.setTitle(this.titleWindow);
     }
+
+    public void setButSMILE(Button butEMO) {
+        this.butSmile = butEMO;
+    }
+
+    public void setButPOO(Button butPoo) {
+        this.butPoo = butPoo;
+    }
 }
+

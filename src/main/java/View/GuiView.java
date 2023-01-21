@@ -5,16 +5,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+
+import java.nio.charset.Charset;
 
 public class GuiView {
 
@@ -47,7 +45,6 @@ public class GuiView {
 
         //progress Indicator
        ProgressIndicator prgIndicator = new ProgressIndicator();
-        //prgIndicator.setDisable(true); //todo alles entfernen Thread Problem
         prgIndicator.setVisible(false);
 
 
@@ -70,11 +67,11 @@ public class GuiView {
 
         //Window name aendern
         this.clientController.setTitleWindow(tfLoginUsr.getText());
-        //todo ändern
+
         //Button für Scene definieren
         Button butLogin = new Button("Connect");
         Button butCancel = new Button("CANCEL");
-        //butLogin.setPrefSize(100,100); //todo changer
+
         butLogin.setPrefWidth(80);
         butCancel.setPrefWidth(80);
 
@@ -102,6 +99,10 @@ public class GuiView {
         //progressindicator mit controller verbinden
         this.clientController.setPrgIndicator(prgIndicator);
 
+        //titel festlegen
+        this.clientController.setTitleWindow("LOGIN");
+
+
         return root;
 
     }
@@ -109,8 +110,22 @@ public class GuiView {
     //Message Fenster
 
     public Parent MessageWindow(){
-       //GridPane root = new GridPane(); //todo change
 
+
+        //---------- könnte man in eine eigene Klasse geben-----------
+
+
+
+
+        //poo
+        byte[] b_emojiPoo = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x92, (byte)0xA9};
+        String emojiPoo = new String(b_emojiPoo, Charset.forName("UTF-8"));
+
+        //smile
+        byte[] b_emojiSmile = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0x81};
+        String emojiSmile = new String(b_emojiSmile, Charset.forName("UTF-8"));
+
+        //-----------------------------
 
         //TextArea textAreaReceoved für Scene definieren
         TextArea textAreaReceived = new TextArea();
@@ -123,7 +138,7 @@ public class GuiView {
         //msgStatusLabel.setTextFill(Color.RED); //todo entfernen after debugging
 
 
-        //ListView für Angemeldete Member
+//---------------------ListView für Angemeldete Member---------------------------------
         //liste erstellen
         ObservableList<String> memberList = FXCollections.observableArrayList();
 
@@ -145,7 +160,7 @@ public class GuiView {
         this.clientController.setTfMessage(tfMessage);
 
         //Listviewer und liste mit Controller verbinden //todo notwendig?
-        this.clientController.setMemberList(memberList); //???
+        this.clientController.setMemberList(memberList);
 
         this.clientController.setListView(listView);
 
@@ -160,9 +175,19 @@ public class GuiView {
         Button butSend = new Button("SEND");
         butSend.setMaxWidth((textAreaReceived.getMaxWidth()/ 6));
 
+         Button butEmojiSmile = new Button(emojiSmile);
+         butEmojiSmile.setMaxWidth((textAreaReceived.getMaxWidth()/ 6));
+
+         Button butEmojiPoo = new Button(emojiPoo);
+        butEmojiSmile.setMaxWidth((textAreaReceived.getMaxWidth()/ 6));
+        butEmojiPoo.setAlignment(Pos.CENTER);
+
 
         //Button butSend mit Controller verbinden
         this.clientController.setButSend(butSend);
+
+        this.clientController.setButSMILE(butEmojiSmile);
+        this.clientController.setButPOO(butEmojiPoo);
 
 
         //Layout message window
@@ -184,7 +209,7 @@ public class GuiView {
         //main layout of the nodes
         msg.setLayoutX(10);
         msg.setLayoutY(10);
-        msg.getChildren().addAll(areaLayout,labelLayout,hmiLayout);
+        msg.getChildren().addAll(areaLayout,labelLayout,butEmojiSmile,hmiLayout);
         //msg.setAlignment(Pos.CENTER);
 
 
