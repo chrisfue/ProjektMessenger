@@ -26,7 +26,7 @@ zu übergebene Daten an server:
 
 zu kriegende:
 
-Ich Brauche ein >>bool true<< von euch wenn die Verbindung steht, und der messenger geöffnet werden kann
+memberlist muss gefüllt werden siehe eventhandler
 
 
 -----------------------------------------

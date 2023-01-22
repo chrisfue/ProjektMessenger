@@ -5,27 +5,47 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
+import java.nio.charset.Charset;
+
+/***
+ *  The View Class uses JavaFx and contains all initializations and methods of various objects contained in the GUI.
+ *
+ */
 public class GuiView {
 
     private final ClientController clientController;
 
+
+    private String userName;
+    private String selectedMember;
+
+    private String emojiPoo;
+
+    private String emojiSmile;
+    byte[] b_emojiSmile;
+
+    /***
+     * Bind the clientController of Class View and Controller with each-other.
+     * @param clientController clientController of view class
+     */
     public GuiView(ClientController clientController) {
         this.clientController = clientController;
     }
 
 
     //Login Fenster
+
+    /***
+     * <code>loginCode</code> contains the Login Scene with the objects
+     * @return the loginWindow as parent
+     */
     public Parent loginWindow() {
         //Layout erstellen
         GridPane root = new GridPane();
@@ -37,17 +57,19 @@ public class GuiView {
 
 
 
+
+
         HBox buttonBox = new HBox(10); //neded to pos both button in one grid
 
 
         //progress Indicator
        ProgressIndicator prgIndicator = new ProgressIndicator();
-        //prgIndicator.setDisable(true); //todo alles entfernen Thread Problem
         prgIndicator.setVisible(false);
 
 
 
         //Textfeld für Scene definieren
+
         TextField tfLoginIP = new TextField();
         tfLoginIP.setPromptText("Bitte IP angeben...");
         root.add(tfLoginIP, 0, 0);
@@ -63,10 +85,13 @@ public class GuiView {
         //Textfeld mit Controller verlinken
         this.clientController.setTfLoginUsr(tfLoginUsr);
 
+        //Window name aendern
+        this.clientController.setTitleWindow(tfLoginUsr.getText());
+
         //Button für Scene definieren
         Button butLogin = new Button("Connect");
         Button butCancel = new Button("CANCEL");
-        //butLogin.setPrefSize(100,100); //todo changer
+
         butLogin.setPrefWidth(80);
         butCancel.setPrefWidth(80);
 
@@ -94,15 +119,52 @@ public class GuiView {
         //progressindicator mit controller verbinden
         this.clientController.setPrgIndicator(prgIndicator);
 
+        //titel festlegen
+        this.clientController.setTitleWindow("LOGIN");
+
+
         return root;
 
     }
 
     //Message Fenster
 
-    public Parent MessageWindow(){
-       //GridPane root = new GridPane(); //todo change
+    /***
+     * Bind the String of the Emoji with the String of the Controller class
+     * @param emojiPoo string of unicode that contains an emoji
+     */
+    public void setEmojiPoo(String emojiPoo) {
+        this.emojiPoo = emojiPoo;
+    }
 
+    /***
+     * Bind the String of the Emoji with the String of the Controller class
+     * @param emojiSmile string of unicode that contains the smile emoji
+     */
+    public void setEmojiSmile(String emojiSmile) {
+        this.emojiSmile = emojiSmile;
+    }
+
+    /***
+     * <code>MessageWindow</code> contains all Object of the Messenger Window
+     * @return it returns the MesageWindow as parent
+     */
+    public Parent MessageWindow(){
+
+
+        //todo
+        //---------- könnte man in eine eigene Klasse geben-----------
+
+
+        //poo Emoji initialisierung
+        byte[] b_emojiPoo = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x92, (byte)0xA9};
+         emojiPoo = new String(b_emojiPoo, Charset.forName("UTF-8"));
+
+        //smile Emoji initialisierung
+        b_emojiSmile = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0x81};
+         emojiSmile = new String(b_emojiSmile, Charset.forName("UTF-8"));
+
+        //-----------------------------
 
         //TextArea textAreaReceoved für Scene definieren
         TextArea textAreaReceived = new TextArea();
@@ -112,10 +174,10 @@ public class GuiView {
 
         //label erstellen
         Label msgStatusLabel = new Label();
-        //msgStatusLabel.setTextFill(Color.RED); //todo entfernen after debugging
 
 
-        //ListView für Angemeldete Member
+
+//---------------------ListView für Angemeldete Member---------------------------------
         //liste erstellen
         ObservableList<String> memberList = FXCollections.observableArrayList();
 
@@ -123,19 +185,45 @@ public class GuiView {
         ListView<String> listView = new ListView<String>();
         listView.setMaxSize(150,200);
 
+        //schreibt die memberListe in das ListView element >> in der GUI
         listView.setItems(memberList);
 
 
+//---------------------Definitions der verschiedenen Teile der GUI------------------
         //Textfeld tfMessage für Scene definieren
         TextField tfMessage = new TextField();
         tfMessage.setPromptText("Message...");
         tfMessage.setPrefWidth((textAreaReceived.getMaxWidth()/ 6)*5);
 
+
+        //Button butsend für scene definieren
+        Button butSend = new Button("SEND");
+        butSend.setMaxWidth((textAreaReceived.getMaxWidth()/ 6));
+
+         Button butEmojiSmile = new Button(emojiSmile);
+         butEmojiSmile.setMaxWidth((textAreaReceived.getMaxWidth()/ 6));
+
+         Button butEmojiPoo = new Button(emojiPoo);
+        butEmojiSmile.setMaxWidth((textAreaReceived.getMaxWidth()/ 6));
+        butEmojiPoo.setAlignment(Pos.BOTTOM_CENTER);
+
+
+//---------------Objekte mit Controller verbinden-------------------
+        this.clientController.setButSend(butSend);
+        this.clientController.setButSMILE(butEmojiSmile);
+        this.clientController.setButPOO(butEmojiPoo);
+
+        this.clientController.setEmojiPoo(emojiPoo);
+        this.clientController.setEmojiSmile(emojiSmile);
+
+        this.clientController.setB_emojiSmile(b_emojiSmile);
         //Textfeld tfMessage mit Controller verbinden
         this.clientController.setTfMessage(tfMessage);
 
-        //listvierwer mit Controller verbinden
+        //Listviewer und liste mit Controller verbinden //todo notwendig?
         this.clientController.setMemberList(memberList);
+
+        this.clientController.setListView(listView);
 
         //label mit controller verbinden
         this.clientController.setMsgStatusLabel(msgStatusLabel);
@@ -144,20 +232,14 @@ public class GuiView {
         //TextArea text mit Controller verbinden
         this.clientController.setTextAreaReceived(textAreaReceived);
 
-        //Button butsend für scene definieren
-        Button butSend = new Button("SEND");
-        butSend.setMaxWidth((textAreaReceived.getMaxWidth()/ 6));
-
-
-        //Button butSend mit Controller verbinden
-        this.clientController.setButSend(butSend);
-
+//-----------------------Layouts anpassen und einstellen---------------------------
 
         //Layout message window
         VBox msg = new VBox(10);
         HBox areaLayout = new HBox(10);
         HBox labelLayout = new HBox(10);
         HBox hmiLayout = new HBox(10);
+        HBox emojiLayout = new HBox(10);
 
         //layout interaction
         hmiLayout.getChildren().addAll(tfMessage,butSend);
@@ -169,11 +251,15 @@ public class GuiView {
         labelLayout.getChildren().add(msgStatusLabel);
         labelLayout.setAlignment(Pos.CENTER);
 
+        //layout for emojis
+        emojiLayout.getChildren().addAll(butEmojiSmile,butEmojiPoo);
+        emojiLayout.setAlignment(Pos.CENTER_LEFT);
         //main layout of the nodes
         msg.setLayoutX(10);
         msg.setLayoutY(10);
-        msg.getChildren().addAll(areaLayout,labelLayout,hmiLayout);
+        msg.getChildren().addAll(areaLayout,labelLayout, emojiLayout,hmiLayout);
         //msg.setAlignment(Pos.CENTER);
+
 
 
         return msg;
