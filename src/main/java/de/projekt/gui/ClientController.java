@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import tools.IPAddressValidator;
 
 import java.io.IOException;
@@ -159,7 +160,7 @@ public class ClientController {
                            }catch(IOException e){
                                System.out.println("fuck");
                            }
-                           client.receiveMessage(textAreaReceived);
+                           client.receiveMessage(textAreaReceived, memberList);
                             stage.setScene(msg);
                         }
                     }
@@ -179,6 +180,7 @@ public class ClientController {
             }
         });
 
+
         //todo Jan: muss noch eventhandler auf maouse klicked anpassen
 
         /***
@@ -188,6 +190,7 @@ public class ClientController {
          *
          */
         this.tfLoginUsr.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)) {
@@ -209,29 +212,32 @@ public class ClientController {
                         IPAddressValidator validator = new IPAddressValidator();
                         if (IPAddressValidator.isValid(IPentered)) {
 
-                            //Verbindung zu Server herstellen
 
-                            try {
-                                Socket clientsocket = new Socket(IPentered, 4711);
-                                client = new Client(clientsocket, username);
+                            //is only need for GUI debugging while server not running
+                            //System.out.println("IP VALID!");
+
+                            //todo needed for Testing GUI
+/*
+
+                    //Verbindung zu Server herstellen
+                        try{
+                            Socket clientsocket = new Socket(IPentered,4712);
+                           *//* this.output = client.getOutputStream();
+                            input = client.getInputStream();
+
+                            *//*
+                            this.client = new Client(clientsocket,username);
 
 
-                            }  catch (IOException e) {
-                                labelStatus.setText("could not connect\n to this address");
-                            }
-                            if(client!=null){
-                                if(client.getSocket().isConnected()) {
-                                    byte loginMessage[] = ("/login " + username +"\n").getBytes();
-                                    try {
-                                        client.getSocket().getOutputStream().write(loginMessage);
-                                    }catch(IOException e){
-                                        System.out.println("fuck");
-                                    }
-                                    client.receiveMessage(textAreaReceived);
-                                    stage.setScene(msg);
-                                }
-                            }
-                            //Nur zum Testen
+
+                        }catch(UnknownHostException e){
+
+                        }
+                        catch (IOException e){
+                            System.out.println("error");
+                        }
+
+
                         } else { //Wenn keine gültige IP-Adresse eingegeben wurde
                             labelStatus.setText("Invalid IP-Format.. please try again");
                             labelStatus.setTextFill(Color.RED);
@@ -243,14 +249,14 @@ public class ClientController {
                     }
                 }
             }
-        });
+        });*/
 
 
         /***
          * <code>butSend.setOnAction</code> send the Message of the Textfield to to the Server
          */
         this.butSend.setOnAction((ActionEvent event2) -> {
-            //Text übernehmen
+        /*    //Text übernehmen
             String textInput = tfMessage.getText();
             byte bmessage[] = (textInput + "\n").getBytes();
             //Text ausschicken
@@ -259,8 +265,8 @@ public class ClientController {
                 client.getSocket().getOutputStream().write(bmessage);
             } catch (IOException e) {
 
-            }
-
+            }*/
+    this.sendMessage();
         });
 
 
@@ -335,15 +341,44 @@ public class ClientController {
         });
 
 
-    }
+        this.stage.setOnCloseRequest((WindowEvent close)->{
+            String textInput = tfMessage.getText();
+            byte bmessage[] = ("/logout "+ this.client.getUsername() + "\n").getBytes();
+            //Text ausschicken
 
+            try {
+                client.getSocket().getOutputStream().write(bmessage);
+            } catch (IOException e) {
+e.printStackTrace();
+            }
+            try{
+                this.client.getSocket().close();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        });
+
+    }
+    public void sendMessage(){
+        String textInput = tfMessage.getText();
+        byte bmessage[]= (textInput + "\n").getBytes();
+        try {
+            this.client.getSocket().getOutputStream().write(bmessage);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+      //clear Textfield
+        tfMessage.clear();
+
+    }
+    
     /***
      * Bind the listView with the view in the ViewClass.
      * @param listView displays a List of Members.
      */
     public void setListView(ListView<String> listView) {
         this.listView = listView;
-    }
 
     /***
      * Bind the memberList with the List in the ViewClass.
