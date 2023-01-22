@@ -156,21 +156,11 @@ public class ClientController {
                 labelStatus.setTextFill(Color.RED);
             }
         });
-
+/**
+ * <code>butSend.setOnAction</code>
+ * sends text in textbox to Server
+ */
         this.butSend.setOnAction((ActionEvent event2) -> {
-
-
-
-           /* //Text übernehmen
-            String textInput = tfMessage.getText();
-            byte bmessage[] = (textInput + "\n").getBytes();
-            //Text ausschicken
-
-            try {
-                client.getSocket().getOutputStream().write(bmessage);
-            } catch (IOException e) {
-
-            }*/
             this.sendMessage();
 
         });
