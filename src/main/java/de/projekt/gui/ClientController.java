@@ -1,6 +1,5 @@
 package de.projekt.gui;
 
-
 import Networking.Client;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,7 +14,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import tools.IPAddressValidator;
 
 import java.io.IOException;
@@ -25,11 +23,8 @@ import java.net.Socket;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-
-/***
- * ClientController Class controls and bind all functions provided by the GUI and the Client itself.
- * It also starts the server Connection.
- */
+import javafx.stage.WindowEvent;
+//merged css into devJAn
 public class ClientController {
 
     //Definition für Displayzugriff
@@ -42,14 +37,11 @@ public class ClientController {
 
     private InputStream input = null;
 
-    private Client client;
-
     private String titleWindow;
 
-
-
-    //selected member from visible member list
     private String selectedMember;
+
+    private Client client;
 
     //Loginfenster:
     private TextField tfLoginUsr;       //Zugriff au
@@ -60,7 +52,6 @@ public class ClientController {
     private  Button butSmile;
 
     private Button butPoo;
-
     private Label labelStatus;
 
     private ProgressIndicator prgIndicator; //progressindicator while waiting on server
@@ -70,10 +61,7 @@ public class ClientController {
     private TextField tfMessage;
     private TextArea textAreaReceived;
 
-    //listen Element für die Member
-    private ObservableList<String> memberList = FXCollections.observableArrayList();
-
-    //Listen Container
+    private ObservableList<String> memberList = FXCollections.observableArrayList(); //liste für die Member
     ListView<String> listView = new ListView<String>();
     private Button butSend;
 
@@ -84,6 +72,7 @@ public class ClientController {
 
     private String emojiSmile;
     byte[] b_emojiSmile;
+
 
     /***
      * Bind the Progressindicator between Controller and View Class
@@ -108,18 +97,15 @@ public class ClientController {
             }
         });
 
-
-        /***
-         * <code>butLogin.setOnAction</code> Login Handler by Pressing on Login.
-         * That init the workflow for the Connection between Client and Server
-         */
+/***
+ * <code>butLogin.setOnAction</code> Login Handler by Pressing on Login.
+ * That init the workflow for the Connection between Client and Server
+ */
         this.butLogin.setOnAction((ActionEvent event) -> {
 
 
             String IPentered = tfLoginIP.getText();
             String username = tfLoginUsr.getText();
-
-
 
 
             //Check dass beide Fenster befüllt sind
@@ -142,25 +128,16 @@ public class ClientController {
                     }  catch (IOException e) {
                         labelStatus.setText("could not connect\n to this address");
 
-
-                    //todo Chris:
-                    // memberList.addAll("Chris", "Mario", "Jan", "Bitch", "AmArsch");
-
-
-                        //todo neu: selectedMember ist ein String der den Namen der auswahl des Users aus Member Liste zurückgibt!
-
-
-
                     }
                     if(client!=null){
                         if(client.getSocket().isConnected()) {
                             byte loginMessage[] = ("/login " + username +"\n").getBytes();
-                           try {
-                               client.getSocket().getOutputStream().write(loginMessage);
-                           }catch(IOException e){
-                               System.out.println("fuck");
-                           }
-                           client.receiveMessage(textAreaReceived, memberList);
+                            try {
+                                client.getSocket().getOutputStream().write(loginMessage);
+                            }catch(IOException e){
+                               e.printStackTrace();
+                            }
+                            client.receiveMessage(textAreaReceived, memberList);
                             stage.setScene(msg);
                         }
                     }
@@ -168,7 +145,7 @@ public class ClientController {
 
 
 
-                    //Nur zum Testen
+
                 } else { //Wenn keine gültige IP-Adresse eingegeben wurde
                     labelStatus.setText("Invalid IP-Format.. please try again");
                     labelStatus.setTextFill(Color.RED);
@@ -180,8 +157,23 @@ public class ClientController {
             }
         });
 
+        this.butSend.setOnAction((ActionEvent event2) -> {
 
-        //todo Jan: muss noch eventhandler auf maouse klicked anpassen
+
+
+           /* //Text übernehmen
+            String textInput = tfMessage.getText();
+            byte bmessage[] = (textInput + "\n").getBytes();
+            //Text ausschicken
+
+            try {
+                client.getSocket().getOutputStream().write(bmessage);
+            } catch (IOException e) {
+
+            }*/
+            this.sendMessage();
+
+        });
 
         /***
          * <code>tfLoginUsr.setOnKeyPressed</code>
@@ -190,7 +182,6 @@ public class ClientController {
          *
          */
         this.tfLoginUsr.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)) {
@@ -212,32 +203,29 @@ public class ClientController {
                         IPAddressValidator validator = new IPAddressValidator();
                         if (IPAddressValidator.isValid(IPentered)) {
 
+                            //Verbindung zu Server herstellen
 
-                            //is only need for GUI debugging while server not running
-                            //System.out.println("IP VALID!");
-
-                            //todo needed for Testing GUI
-/*
-
-                    //Verbindung zu Server herstellen
-                        try{
-                            Socket clientsocket = new Socket(IPentered,4712);
-                           *//* this.output = client.getOutputStream();
-                            input = client.getInputStream();
-
-                            *//*
-                            this.client = new Client(clientsocket,username);
+                            try {
+                                Socket clientsocket = new Socket(IPentered, 4711);
+                                client = new Client(clientsocket, username);
 
 
-
-                        }catch(UnknownHostException e){
-
-                        }
-                        catch (IOException e){
-                            System.out.println("error");
-                        }
-
-
+                            }  catch (IOException e) {
+                                labelStatus.setText("could not connect\n to this address");
+                            }
+                            if(client!=null){
+                                if(client.getSocket().isConnected()) {
+                                    byte loginMessage[] = ("/login " + username +"\n").getBytes();
+                                    try {
+                                        client.getSocket().getOutputStream().write(loginMessage);
+                                    }catch(IOException e){
+                                        System.out.println("fuck");
+                                    }
+                                    client.receiveMessage(textAreaReceived, memberList);
+                                    stage.setScene(msg);
+                                }
+                            }
+                            //Nur zum Testen
                         } else { //Wenn keine gültige IP-Adresse eingegeben wurde
                             labelStatus.setText("Invalid IP-Format.. please try again");
                             labelStatus.setTextFill(Color.RED);
@@ -249,32 +237,13 @@ public class ClientController {
                     }
                 }
             }
-        });*/
-
-
-        /***
-         * <code>butSend.setOnAction</code> send the Message of the Textfield to to the Server
-         */
-        this.butSend.setOnAction((ActionEvent event2) -> {
-        /*    //Text übernehmen
-            String textInput = tfMessage.getText();
-            byte bmessage[] = (textInput + "\n").getBytes();
-            //Text ausschicken
-
-            try {
-                client.getSocket().getOutputStream().write(bmessage);
-            } catch (IOException e) {
-
-            }*/
-    this.sendMessage();
         });
 
 
-        //needed to show progress indicator without own thread
-        /***
-         * <code>tfLoginUsr.setOnMouseReleased</code> shows the Progressidicator to see if the program works or not,
-         * when the Mouse Key released.
-         */
+/***
+ * <code>tfLoginUsr.setOnMouseReleased</code> shows the Progressidicator to see if the program works or not,
+ * when the Mouse Key released.
+ */
         this.tfLoginUsr.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -282,6 +251,7 @@ public class ClientController {
                 stage.show();
             }
         });
+
         /***
          * <code>tfLoginUsr.setOnMouseReleased</code> shows the Progressidicator to see if the program works or not,
          * when released the Tab Key.
@@ -295,7 +265,7 @@ public class ClientController {
         });
 
         /***
-         * <code>listView.setOnMouseClicked</code> if you select a name from the list it is sent to the server.
+         * <code>listView.setOnMouseClicked</code> if you select a name from the list whisper text will be added to your textInput.
          */
         this.listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -303,14 +273,34 @@ public class ClientController {
                 //ermöglicht das ausgewählte item auszugeben aus der Memberlist
                 selectedMember = listView.getSelectionModel().getSelectedItem();
 
-                System.out.printf(selectedMember);
+
+
+                tfMessage.setText("/w " + selectedMember+ " ");
+                tfMessage.requestFocus();
+                tfMessage.deselect();
+                tfMessage.positionCaret(tfMessage.getText().length());
 
             }
         });
+        /**
+         * <code>stage.setonCloseRequest</code> If you close the application the server will be sent a log out info.
+         */
+        this.stage.setOnCloseRequest((WindowEvent close)->{
+            String textInput = tfMessage.getText();
+            byte bmessage[] = ("/logout "+ this.client.getUsername() + "\n").getBytes();
+            //Text ausschicken
 
-        //todo entfernen
-        //-----------------------------------additional Functions
-
+            try {
+                client.getSocket().getOutputStream().write(bmessage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+          /*  try{
+                this.client.getSocket().close();
+            }catch(IOException e){
+                e.printStackTrace();
+            }*/
+        });
 
         /***
          * <code>butSmile</code> Displays the Smile Emoji in the textfield.
@@ -341,25 +331,15 @@ public class ClientController {
         });
 
 
-        this.stage.setOnCloseRequest((WindowEvent close)->{
-            String textInput = tfMessage.getText();
-            byte bmessage[] = ("/logout "+ this.client.getUsername() + "\n").getBytes();
-            //Text ausschicken
-
-            try {
-                client.getSocket().getOutputStream().write(bmessage);
-            } catch (IOException e) {
-e.printStackTrace();
-            }
-            try{
-                this.client.getSocket().close();
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-        });
-
     }
+
+    /***
+     * Send the message currently displayed in tfMessage.
+     */
     public void sendMessage(){
+
+
+
         String textInput = tfMessage.getText();
         byte bmessage[]= (textInput + "\n").getBytes();
         try {
@@ -368,17 +348,18 @@ e.printStackTrace();
             e.printStackTrace();
         }
 
-      //clear Textfield
+        //clear Textfield
         tfMessage.clear();
-
     }
-    
+
+
     /***
      * Bind the listView with the view in the ViewClass.
      * @param listView displays a List of Members.
      */
     public void setListView(ListView<String> listView) {
         this.listView = listView;
+    }
 
     /***
      * Bind the memberList with the List in the ViewClass.
@@ -554,4 +535,5 @@ e.printStackTrace();
         this.b_emojiSmile = b_emojiSmile;
     }
 }
+
 
