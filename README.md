@@ -1,4 +1,13 @@
 **ODE Project: MSN Messenger Chat**
+
+*Authors*
+```
+ic21b096 (Mario Klivan)
+
+ic21b028 (Christoph Fuerst)
+
+ic21b062 (Jan Marc Wiechern)
+```
 ===================
 
 **Short Description:**
@@ -68,7 +77,7 @@ _________________________________________________________
 
      2a.    Sollte ein Fehler mit der ServerVerbindung auftreten oder kein Server unter der angegeben IP-Adresse verfuegbar sein, erscheint eine Fehlermeldung.
  
-     2b.    Bei einer positiven Bestätigung durch den Server, erscheint die Messenger GUI in der es dann moeglich ist nachrichten an die Angemeldeten User zu   versenden.
+     2b.    Bei einer positiven Bestätigung durch den Server, erscheint die Messenger GUI in der es dann moeglich ist nachrichten an die Angemeldeten User zu versenden.
   
 3. im Textfeld werden auch verschiedene Server befehle unterstützt:
                      
