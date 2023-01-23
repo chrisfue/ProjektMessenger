@@ -2,6 +2,7 @@
 ===================
 
 **Short Description:**
+
 Die Firma X möchte ein eigenes Programm haben, damit die Mitarbeiter während der Arbeit
 miteinander Chatten können. Dort sollen die Mitarbeiter sehen wer aller online ist und einen Chat
 starten.
@@ -47,7 +48,8 @@ starten.
 Das Projekt besteht aus 2 separaten Programmen, aus einer Server- und einer Client-GUI Anwendung.
 
 **Die Client-Anwendung** haendelt die User Eingaben und ermoeglicht bei validen Eingaben eine Verbindung mit dem Server.
-Zudem ist der Client die Schnittstelle, eine Art Human Interface GUI zur Messenger Applikation.
+Zudem ist der Client die Schnittstelle, eine Art Human Interface GUI zur Messenger Applikation. 
+Er Bildet auch die Nachrichten anderer Clients ab und hat eine visuelle Rueckmaeldung angemeldeter User(namen).
 
 
 **Der Server** ermoeglicht es, die Clients untereinander zu verbinden, um zB. Nachrichten austauschen zu koennen.
