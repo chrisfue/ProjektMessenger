@@ -1,46 +1,60 @@
-# ProjektMessenger
+**ODE Project: MSN Messenger Chat**
+===================
 
-**Anmerkung:**
+**Short Description:**
+Die Firma X möchte ein eigenes Programm haben, damit die Mitarbeiter während der Arbeit
+miteinander Chatten können. Dort sollen die Mitarbeiter sehen wer aller online ist und einen Chat
+starten.
 
-Leider habe ich es nicht geschafft Chris, dein maven build zu builden, mir fehlt ein javafx runtime element.
-Scheinbar ist die Maven nicht vollständig oder dergleichen, ich konnte es auch nicht manuell zum laufen bringen.
+---------------------------------
 
-somit habe ich eine neue Gui angefertigt. (damit du notfalls einfach das File direkt reinkopieren kannst).
-Ich habe sie euch in nur **eine** Java Klasse reingeschrieben damit ihr euch auskennt und nicht 3 verschiedene Klassen zu durchsuchen braucht.
-
-
-Ich habe hier mein komplettes build hochgeladen was im discord im GIF sichtbar ist.
-
-einfach in die todos gehen da habe ich >> **Todo: Chris ..** << definiert, da kannst du deine variablen und befehle reinschreiben die du benötigst.
-
-und ich kann es dann später trennen (die Gui ist ja sowieso nur eine erste Version)
-
--------------------------------------
-
-### Login Fenster ###
-
-zu übergebene Daten an server:
-
-1.  Ip-Adresse
-2.  Username (falls benötigt)
-
-zu kriegende:
-
-memberlist muss gefüllt werden siehe eventhandler
+### Must Have Features ###
 
 
------------------------------------------
+* [X] Kommentiert mit JavaDoc
+* [x] readme.md für Überblick
+* [x] Klassen mit Vererbung, Overriding, etc.
+* [ ] Zugriffsrechte sinnvoll
+* [ ] Exeption Handling
+* [ ] File IO (Status-Log)
+* [ ] Multithreading (Thread: jeder Client Thread für Client und Server verbindung)
+* [ ] GUI (Chat-Window)
+* [ ] Networking (einzelner User am Server)
+
+-------------
+### Should Have Features ###
+
+* [ ] Networking+ (Mehrere User verbinden sich mit Server)
+* [ ] Online Status anzeigen lassen in der Client GUI.
+* [ ] Chat-Log als .txt File am Server
+
+-------------
+
+### Nice to Have Features ###
+
+* [ ] Emojis
+* [ ] Chat Log in GUI anzeigen lassen. (letzte h)
+
+--------------
+### Overkill ###
+
+* [ ] Direct Messaging (whisper)
 
 
-### Messenger ###
-
-zu übergebene Daten:
-
-1. Message String
+-----
+[Add description here]
+*In der Main Methode:*
 
 
-zu kriegende:
+============================================
 
-1. String vom anderen Client
+*Written by KliWieFue*
+---------------------------
+**Project Description**
 
 
+*last update:*
+
+```
+19.12.22 - readme added 
+```
