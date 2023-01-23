@@ -59,10 +59,14 @@ _________________________________________________________
 
 1.    Der User muss die Client Anwendung starten und sollte ein Server noch nicht gestartet worden sein, auch diese Anwendung starten.
 2.    Beim Starten der Client anwendung erscheint ein Login GUI und erwartet eine valide IP adresse eines Servers, als auch einen gewuenschten Usernamen.
-  2a.    Sollte ein Fehler mit der ServerVerbindung auftreten oder kein Server unter der angegeben IP-Adresse verfuegbar sein, erscheint eine Fehlermeldung.
-  2b.    Bei einer positiven Bestätigung durch den Server, erscheint die Messenger GUI in der es dann moeglich ist nachrichten an die Angemeldeten User zu versenden.
+
+     2a.    Sollte ein Fehler mit der ServerVerbindung auftreten oder kein Server unter der angegeben IP-Adresse verfuegbar sein, erscheint eine Fehlermeldung.
+ 
+     2b.    Bei einer positiven Bestätigung durch den Server, erscheint die Messenger GUI in der es dann moeglich ist nachrichten an die Angemeldeten User zu   versenden.
+  
 3. im Textfeld werden auch verschiedene Server befehle unterstützt:
-                  -> 
+                 
+                 -> 
 
 
 
