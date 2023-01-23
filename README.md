@@ -33,23 +33,27 @@ starten.
 
 ### Nice to Have Features ###
 
-* [ ] Emojis
-* [ ] Chat Log in GUI anzeigen lassen. (letzte h)
+* [~] Emojis
+* [x] Chat Log in GUI anzeigen lassen. (letzte h)
 
 --------------
 ### Overkill ###
 
-* [ ] Direct Messaging (whisper)
+* [x] Direct Messaging (whisper)
 
 
 -----
 ## Funktionsweise ##
 
-Das Projekt besteht aus 2 separaten Programmen, aus einer Server- und einer Client-GUI Anwendung.
+Das Projekt besteht aus 2 separaten Programmen, aus einer Server- und einer Client-GUI Anwendung, die beide in seperaten Repositorys bearbeitet wurden.
+
+[Client Repository Link](https://github.com/chrisfue/ProjektMessenger)
+
+[Server Repository Link](https://github.com/Einheit21/Server)
 
 **Die Client-Anwendung** haendelt die User Eingaben und ermoeglicht bei validen Eingaben eine Verbindung mit dem Server.
 Zudem ist der Client die Schnittstelle, eine Art Human Interface GUI zur Messenger Applikation. 
-Er Bildet auch die Nachrichten anderer Clients ab und hat eine visuelle Rueckmaeldung angemeldeter User(namen).
+Er bildet auch die Nachrichten anderer Clients ab und hat eine visuelle Rueckmaeldung angemeldeter User(namen).
 
 
 **Der Server** ermoeglicht es, die Clients untereinander zu verbinden, um zB. Nachrichten austauschen zu koennen.
@@ -67,12 +71,16 @@ _________________________________________________________
      2b.    Bei einer positiven Bestätigung durch den Server, erscheint die Messenger GUI in der es dann moeglich ist nachrichten an die Angemeldeten User zu   versenden.
   
 3. im Textfeld werden auch verschiedene Server befehle unterstützt:
-                 
-                 -> 
+                     
+     - /rename [newname] - ändert den aktuellen Namen des users
+     
+     - /w [name] [message] - schickt eine private Nachricht an den user [name]
+     
+     - /log - sendet das Log der letzten stunde
+     
+     - /? - zeigt die möglichen Server Befehle an
 
-
-
-
+4. ein sogenanntes Whispern wird ebenfalls unterstützt, zB. durch auswählen des Users aus der Liste oder durch den befehl der prvt. Nachricht.
 
 
 ============================================
@@ -86,5 +94,6 @@ _________________________________________________________
 
 ```
 19.12.22 - readme added 
-23.01.23 - rework Readme (feature and Description added)
+23.01.23 - rework Readme (feature and Description added/updated)
+
 ```
