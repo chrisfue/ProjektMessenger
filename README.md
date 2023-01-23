@@ -32,7 +32,7 @@ starten.
 
 ### Nice to Have Features ###
 
-* [~] Emojis
+* [ ] Emojis
 * [ ] Chat Log in GUI anzeigen lassen. (letzte h)
 
 --------------
