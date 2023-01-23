@@ -58,7 +58,7 @@ Das Projekt besteht aus 2 separaten Programmen, aus einer Server- und einer Clie
 
 [Client Repository Link](https://github.com/chrisfue/ProjektMessenger)
 
-[Server Repository Link](https://github.com/Einheit21/Server)
+[Server Repository Link](https://github.com/Einheit21/MessengerServer)
 
 **Die Client-Anwendung** haendelt die User Eingaben und ermoeglicht bei validen Eingaben eine Verbindung mit dem Server.
 Zudem ist der Client die Schnittstelle, eine Art Human Interface GUI zur Messenger Applikation. 
